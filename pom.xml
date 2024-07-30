@@ -3,16 +3,16 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>gauge_kotlin_maven</groupId>
-    <artifactId>gauge_kotlin_maven</artifactId>
+    <groupId>task-canvas</groupId>
+    <artifactId>task-canvas-e2e</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <kotlin.version>1.9.24</kotlin.version>
         <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
-        <gauge.java.version>0.10.3</gauge.java.version>
+        <gauge.java.version>0.11.0</gauge.java.version>
         <gauge.maven.version>1.6.3</gauge.maven.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -22,13 +22,13 @@
         <dependency>
             <groupId>com.thoughtworks.gauge</groupId>
             <artifactId>gauge-java</artifactId>
-            <version>${gauge.java.version}</version>
+            <version>0.11.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
+            <version>2.0.20-RC</version>
         </dependency>
     </dependencies>
 
