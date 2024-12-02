@@ -1,4 +1,4 @@
 # Test
 
 ## Print hello
-* Hello world
+* v1/systems/pingにリクエストを送るとpongが返ってくる
