@@ -1,30 +1,37 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>gauge_kotlin_maven</groupId>
-    <artifactId>gauge_kotlin_maven</artifactId>
+    <groupId>com.taskcanvas</groupId>
+    <artifactId>task-canvas-e2e</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <kotlin.version>1.9.24</kotlin.version>
-        <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
         <gauge.java.version>0.10.3</gauge.java.version>
-        <gauge.maven.version>1.6.3</gauge.maven.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-
     <dependencies>
+        <!-- Gauge Java Plugin -->
         <dependency>
             <groupId>com.thoughtworks.gauge</groupId>
             <artifactId>gauge-java</artifactId>
             <version>${gauge.java.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- AssertJ for Assertions -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Kotlin Standard Library (必要な場合のみ) -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
@@ -34,33 +41,11 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>com.thoughtworks.gauge.maven</groupId>
-                <artifactId>gauge-maven-plugin</artifactId>
-                <version>${gauge.maven.version}</version>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <configuration>
-                            <specsDir>specs</specsDir>
-                        </configuration>
-                        <goals>
-                            <goal>validate</goal>
-                            <goal>execute</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!-- Kotlin Maven Plugin (必要な場合のみ) -->
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
-                <configuration>
-                    <args>
-                        <arg>-Xjsr305=strict</arg>
-                    </args>
-                    <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
-                </configuration>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -83,7 +68,22 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Gauge Maven Plugin -->
+            <plugin>
+                <groupId>com.thoughtworks.gauge.maven</groupId>
+                <artifactId>gauge-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>validate</goal>
+                            <goal>execute</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
 </project>
