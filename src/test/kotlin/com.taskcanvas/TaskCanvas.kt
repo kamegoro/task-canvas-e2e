@@ -10,6 +10,7 @@ import java.net.URI
 
 class TaskCanvas {
     private val client = HttpClient.newHttpClient()
+    private lateinit var response: HttpResponse<String>
 
     @Step("v1/systems/pingにリクエストを送るとpongが返ってくる")
     fun pingPong() {
@@ -19,8 +20,13 @@ class TaskCanvas {
             .GET()
             .build()
 
-        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        response = client.send(request, HttpResponse.BodyHandlers.ofString())
 
         assertThat( response.body() ).isEqualTo("pong")
+    }
+
+    @Step("ステータスコードが<status>である")
+    fun statusCode(status: Int) {
+        assertThat(response.statusCode()).isEqualTo(status)
     }
 }
