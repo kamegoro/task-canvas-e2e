@@ -29,4 +29,12 @@ class TaskCanvas {
     fun statusCode(status: Int) {
         assertThat(response.statusCode()).isEqualTo(status)
     }
+
+    @Step("/v1/signUpにリクエストを送るとユーザー登録ができる")
+    fun signUp() {
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:8080/v1/signUp"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString("{\"password\":\"test\",\"email\": \"test@example.com\"}"))
+    }
 }
