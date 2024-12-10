@@ -2,13 +2,15 @@ package com.taskcanvas
 
 import com.thoughtworks.gauge.Step
 import org.assertj.core.api.Assertions.assertThat
+import java.io.FileInputStream
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.net.URI
-
+import java.util.Properties
 
 class TaskCanvas {
+    private val baseUrl = readBaseUrl()
     private val client = HttpClient.newHttpClient()
     private lateinit var response: HttpResponse<String>
 
@@ -16,7 +18,7 @@ class TaskCanvas {
     fun pingPong() {
         println("pong")
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:8080/v1/systems/ping"))
+            .uri(URI.create("$baseUrl/v1/systems/ping"))
             .GET()
             .build()
 
@@ -33,8 +35,16 @@ class TaskCanvas {
     @Step("/v1/signUpにリクエストを送るとユーザー登録ができる")
     fun signUp() {
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("http://localhost:8080/v1/signUp"))
+            .uri(URI.create("$baseUrl/v1/signUp"))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString("{\"password\":\"test\",\"email\": \"test@example.com\"}"))
+    }
+
+    private fun readBaseUrl(): String {
+       val  properties = Properties()
+       val propertiesFile = "src/test/resources/gauge.properties"
+        FileInputStream(propertiesFile).use { properties.load(it) }
+
+        return properties.getProperty("rest.baseUrl")
     }
 }
