@@ -44,7 +44,7 @@ class TaskCanvas {
        val  properties = Properties()
        val propertiesFile = "src/test/resources/gauge.properties"
         FileInputStream(propertiesFile).use { properties.load(it) }
-
+        println(properties.getProperty("rest.baseUrl"))
         return properties.getProperty("rest.baseUrl")
     }
 }
