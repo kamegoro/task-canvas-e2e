@@ -1,6 +1,7 @@
 package com.taskcanvas
 
 import com.thoughtworks.gauge.Step
+import com.thoughtworks.gauge.datastore.DataStore
 import org.assertj.core.api.Assertions.assertThat
 import java.io.FileInputStream
 import java.net.http.HttpClient
@@ -18,7 +19,7 @@ class TaskCanvas {
     fun pingPong() {
         println("pong")
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("$baseUrl/v1/systems/ping"))
+            .uri(generateEndpoint("v1/systems/ping"))
             .GET()
             .build()
 
@@ -35,10 +36,24 @@ class TaskCanvas {
     @Step("/v1/signUpにリクエストを送るとユーザー登録ができる")
     fun signUp() {
         val request = HttpRequest.newBuilder()
-            .uri(URI.create("$baseUrl/v1/signUp"))
+            .uri(generateEndpoint("v1/signUp"))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString("{\"password\":\"test\",\"email\": \"test@example.com\"}"))
     }
+
+    @Step("レスポンスヘッダのAuhtorizationにトークンが含まれている")
+    fun responseAuthorization() {
+        assertThat(response.headers().firstValue("Authorization").get().isNotEmpty())
+    }
+
+    @Step("URL<url>にボディ<requestBody>ヘッダー<header>で<requestMethod>リクエストを送る")
+    fun sendRequest(url: String, requestBody: String, header: String, requestMethod: String) {
+        val request = HttpRequest.newBuilder()
+            .uri(generateEndpoint(url))
+
+        HttpClient.newHttpClient()
+    }
+
 
     private fun readBaseUrl(): String {
        val  properties = Properties()
@@ -46,5 +61,9 @@ class TaskCanvas {
         FileInputStream(propertiesFile).use { properties.load(it) }
         println(properties.getProperty("rest.baseUrl"))
         return properties.getProperty("rest.baseUrl")
+    }
+
+    private fun generateEndpoint(url: String): URI {
+        return URI.create("$baseUrl/$url")
     }
 }
