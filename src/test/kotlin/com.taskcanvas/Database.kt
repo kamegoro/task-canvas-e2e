@@ -4,7 +4,7 @@ import java.io.FileInputStream
 import java.sql.DriverManager
 import java.util.Properties
 
-object TaskCanvasDb {
+object Database {
     private val properties = Properties()
 
     init {
@@ -20,7 +20,7 @@ object TaskCanvasDb {
     private val username: String = properties.getProperty("db.username")
     private val password: String = properties.getProperty("db.password")
 
-    private fun connection() = DriverManager.getConnection(jdbcUrl, username, password)
+    fun connection() = DriverManager.getConnection(jdbcUrl, username, password)
 
     fun truncateAll() {
         connection().use { conn ->

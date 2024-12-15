@@ -1,4 +1,4 @@
 # /v1/signUpにリクエストを送るとユーザー登録ができる
 * URL"/v1/signUp"にボディ"{\"email\": \"test@example\", \"password\": \"password\"}"で、POSTリクエストを送る
-//TaskCanvasDBのテーブル"user"にemailが"test@example"のレコードが存在する
-//TaskCanvasDBのテーブル"user"にpasswordが"password"のレコードが存在する
+* TaskCanvasDBのテーブル"user"のカラム"email"に"test@example"のレコードが存在する
+* TaskCanvasDBのテーブル"user"のカラム"password_hash"に"password"のレコードが存在しない

@@ -19,7 +19,6 @@ class TaskCanvas {
 
     @Step("v1/systems/pingにリクエストを送るとpongが返ってくる")
     fun pingPong() {
-        println("pong")
         val request = HttpRequest.newBuilder()
             .uri(generateEndpoint("/v1/systems/ping"))
             .GET()
@@ -50,11 +49,11 @@ class TaskCanvas {
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
     }
 
+
     private fun readBaseUrl(): String {
        val  properties = Properties()
        val propertiesFile = "src/test/resources/gauge.properties"
         FileInputStream(propertiesFile).use { properties.load(it) }
-        println(properties.getProperty("rest.baseUrl"))
         return properties.getProperty("rest.baseUrl")
     }
 

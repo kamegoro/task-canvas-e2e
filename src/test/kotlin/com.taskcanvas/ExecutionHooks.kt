@@ -1,7 +1,6 @@
 package com.taskcanvas
 
 import com.thoughtworks.gauge.BeforeScenario
-import com.thoughtworks.gauge.BeforeSpec
 
 class ExecutionHooks {
     @BeforeScenario
@@ -10,6 +9,6 @@ class ExecutionHooks {
     }
 
     private fun cleanUpDb() {
-        TaskCanvasDb.truncateAll()
+        Database.truncateAll()
     }
 }
