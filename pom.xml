@@ -1,17 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.taskcanvas</groupId>
     <artifactId>task-canvas-e2e</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
+        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <java.version>21</java.version>
         <kotlin.version>2.1.0</kotlin.version>
         <gauge.java.version>0.11.2</gauge.java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.languageVersion>1.9</kotlin.compiler.languageVersion>
+        <kotlin.compiler.apiVersion>1.9</kotlin.compiler.apiVersion>
     </properties>
 
     <dependencies>
@@ -44,9 +48,13 @@
     </dependencies>
 
     <build>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <testResources>
             <testResource>
-                <directory>src/test/resources</directory>
+                <directory>${project.basedir}/src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>${project.basedir}/fixtures</directory>
             </testResource>
         </testResources>
         <plugins>
@@ -54,6 +62,9 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
+                <configuration>
+                    <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
+                </configuration>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -68,11 +79,6 @@
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <source>src/test/kotlin</source>
-                            </sourceDirs>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -81,18 +87,6 @@
                 <groupId>com.thoughtworks.gauge.maven</groupId>
                 <artifactId>gauge-maven-plugin</artifactId>
                 <version>1.6.3</version>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <configuration>
-                            <specsDir>specs</specsDir>
-                        </configuration>
-                        <goals>
-                            <goal>validate</goal>
-                            <goal>execute</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
