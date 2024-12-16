@@ -16,6 +16,7 @@ class TaskCanvas {
     private val baseUrl = readBaseUrl()
     private val client = HttpClient.newHttpClient()
     private lateinit var response: HttpResponse<String>
+    private lateinit var authorizationToken: String
 
     @Step("v1/systems/pingにリクエストを送るとpongが返ってくる")
     fun pingPong() {
@@ -47,6 +48,18 @@ class TaskCanvas {
             .POST(HttpRequest.BodyPublishers.ofString(requestBody))
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+        authorizationToken = response.headers().firstValue("Authorization").get()
+    }
+
+    @Step("URL<url>にAuthorizationTokenを含めてGETリクエストを送る")
+    fun sendGetRequest(url: String) {
+        val request = HttpRequest.newBuilder()
+            .uri(generateEndpoint(url))
+            .header("Authorization", authorizationToken)
+            .GET()
+
+        response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+        authorizationToken = response.headers().firstValue("Authorization").get()
     }
 
 
