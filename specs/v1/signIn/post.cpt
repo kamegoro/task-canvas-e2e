@@ -1,0 +1,6 @@
+#  /v1/signInにリクエストを送るとユーザー登録ができる
+* URL"/v1/signUp"にボディ"{\"email\": \"test@example\", \"password\": \"password\"}"で、POSTリクエストを送る
+* URL"/v1/signIn"にボディ"{\"email\": \"test@example\", \"password\": \"password\"}"で、POSTリクエストを送る
+
+
+

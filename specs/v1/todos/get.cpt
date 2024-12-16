@@ -1,0 +1,5 @@
+# TaskCanvasにログインする
+* URL"/v1/signIn"にボディ"{\"email\": \"test@example\", \"password\": \"password\"}"で、POSTリクエストを送る
+
+#  /v1/todosにGETリクエストを送る
+* URL"/v1/todos"にAuthorizationTokenを含めてGETリクエストを送る
