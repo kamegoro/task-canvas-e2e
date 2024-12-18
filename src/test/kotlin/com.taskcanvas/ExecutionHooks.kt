@@ -22,17 +22,19 @@ class ExecutionHooks {
         val projectDir = System.getProperty("user.dir")
         val relativePath = specFilePath.removePrefix("$projectDir/")
         val specDirectory = relativePath.substringBeforeLast(".")
-        val fixturesPath = "fixtures/$specDirectory/task_canvas"
+        val removedSpecDirectory = specDirectory.removePrefix("specs/")
+        val fixturesPath = "${projectDir}/fixtures/$removedSpecDirectory/task_canvas"
 
         println(fixturesPath)
-
         val tableOrderingFile = File("$fixturesPath/table_ordering.txt")
+        println(tableOrderingFile.exists())
         if (tableOrderingFile.exists()) {
             val sqlFiles = tableOrderingFile.readLines()
+            println(sqlFiles)
 
             val connection =  Database.connection()
             sqlFiles.forEach { sqlFileName ->
-                val sqlFilePath = Paths.get("$fixturesPath/$sqlFileName")
+                val sqlFilePath = Paths.get("$fixturesPath/$sqlFileName.sql")
                 if (Files.exists(sqlFilePath)) {
                     val sql = Files.readString(sqlFilePath)
                     connection.createStatement().use { stmt ->

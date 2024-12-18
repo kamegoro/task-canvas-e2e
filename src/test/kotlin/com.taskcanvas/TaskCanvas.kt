@@ -1,5 +1,6 @@
 package com.taskcanvas
 
+import com.jayway.jsonpath.JsonPath
 import com.sun.net.httpserver.Headers
 import com.thoughtworks.gauge.Step
 import com.thoughtworks.gauge.datastore.DataStore
@@ -60,6 +61,18 @@ class TaskCanvas {
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
         authorizationToken = response.headers().firstValue("Authorization").get()
+    }
+
+    @Step("レスポンスボディにJSONでキー<key>で値<value>が含まれている")
+    fun responseBodyContains(key: String, value: String) {
+        assertThat(response.body()).contains("\"$key\":\"$value\"")
+    }
+
+    @Step("レスポンスボディにJSONでキー<key>が含まれている")
+    fun responseBodyContainsKey(key: String) {
+        val document = JsonPath.parse(response.body())
+        val value = document.read<Any>(key)
+        assertThat(value).isNotNull
     }
 
 

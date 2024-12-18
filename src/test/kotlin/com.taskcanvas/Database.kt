@@ -27,7 +27,9 @@ object Database {
         connection().use { conn ->
             conn.createStatement().use { stmt ->
                 val tables = listOf(
-                    "task_canvas.user"
+                    "task_canvas.user",
+                    "task_canvas.todo",
+                    "task_canvas.user_todo"
                 )
 
                 tables.joinToString(",").let { table ->
