@@ -82,7 +82,6 @@ class TaskCanvas {
         assertThat(value).isNotNull
     }
 
-
     private fun readBaseUrl(): String {
        val  properties = Properties()
        val propertiesFile = "src/test/resources/gauge.properties"
