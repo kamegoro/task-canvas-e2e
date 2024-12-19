@@ -25,12 +25,10 @@ class ExecutionHooks {
         val removedSpecDirectory = specDirectory.removePrefix("specs/")
         val fixturesPath = "${projectDir}/fixtures/$removedSpecDirectory/task_canvas"
 
-        println(fixturesPath)
         val tableOrderingFile = File("$fixturesPath/table_ordering.txt")
         println(tableOrderingFile.exists())
         if (tableOrderingFile.exists()) {
             val sqlFiles = tableOrderingFile.readLines()
-            println(sqlFiles)
 
             val connection =  Database.connection()
             sqlFiles.forEach { sqlFileName ->
@@ -40,8 +38,6 @@ class ExecutionHooks {
                     connection.createStatement().use { stmt ->
                         stmt.execute(sql)
                     }
-                } else {
-                    println("SQL file not found: $sqlFileName")
                 }
             }
         }

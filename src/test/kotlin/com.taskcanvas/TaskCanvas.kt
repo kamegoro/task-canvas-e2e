@@ -68,6 +68,13 @@ class TaskCanvas {
         assertThat(response.body()).contains("\"$key\":\"$value\"")
     }
 
+    @Step("レスポンスボディにJSONでキー<arrayKey>の配列の中にキー<key>で値<value>が含まれていない")
+    fun responseBodyNotContains(arrayKey: String, key: String, value: String) {
+        val document = JsonPath.parse(response.body())
+        val array = document.read<List<Any>>(arrayKey)
+        assertThat(array).noneMatch { JsonPath.read<Any>(it, key) == value }
+    }
+
     @Step("レスポンスボディにJSONでキー<key>が含まれている")
     fun responseBodyContainsKey(key: String) {
         val document = JsonPath.parse(response.body())
