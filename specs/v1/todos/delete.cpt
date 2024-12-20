@@ -1,0 +1,3 @@
+# ID<value>のTODOが削除されている
+* TaskCanvasDBのテーブル"todo"のカラム"id"に<value>のレコードが存在しない
+* TaskCanvasDBのテーブル"user_todo"のカラム"todo_id"に<value>のレコードが存在しない
