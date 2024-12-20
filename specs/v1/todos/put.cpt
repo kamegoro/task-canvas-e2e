@@ -1,0 +1,4 @@
+#  ID<value>のTODOが更新されている
+* TaskCanvasDBのテーブル"todo"のカラム"id"に<value>のレコードが存在する
+* TaskCanvasDBのテーブル"todo"のカラム"content"に"更新済み"のレコードが存在する
+* TaskCanvasDBのテーブル"todo"のカラム"completed"に"true"のレコードが存在する
