@@ -1,10 +1,8 @@
 package com.taskcanvas
 
 import com.jayway.jsonpath.JsonPath
-import com.sun.net.httpserver.Headers
 import com.thoughtworks.gauge.Step
-import com.thoughtworks.gauge.datastore.DataStore
-import oracle.ucp.proxy.annotation.Post
+import com.thoughtworks.gauge.datastore.ScenarioDataStore
 import org.assertj.core.api.Assertions.assertThat
 import java.io.FileInputStream
 import java.net.http.HttpClient
@@ -74,6 +72,17 @@ class TaskCanvas {
         authorizationToken = response.headers().firstValue("Authorization").get()
     }
 
+    @Step("URL<url>にAuthorizationTokenを含めてPOSTリクエストを送る")
+    fun sendPostRequestOnlyAuthorization(url: String) {
+        val request = HttpRequest.newBuilder()
+            .uri(generateEndpoint(url))
+            .header("Authorization", authorizationToken)
+            .POST(HttpRequest.BodyPublishers.noBody())
+
+        response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+        ScenarioDataStore.put("returnedToken", authorizationToken)
+    }
+
     @Step("URL<url>にDELETEリクエストを送る")
     fun sendDeleteRequest(url: String) {
         val request = HttpRequest.newBuilder()
@@ -102,6 +111,16 @@ class TaskCanvas {
         val document = JsonPath.parse(response.body())
         val value = document.read<Any>(key)
         assertThat(value).isNotNull
+    }
+
+    @Step("返却されたトークンがリクエストに使ったトークンと異なる")
+    fun tokenIsDifferent() {
+       assertThat(ScenarioDataStore.get("returnedToken")).isNotEqualTo(authorizationToken)
+    }
+
+    @Step("pass")
+    fun pass() {
+        return
     }
 
     private fun readBaseUrl(): String {

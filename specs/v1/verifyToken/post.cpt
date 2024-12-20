@@ -1,0 +1,3 @@
+# URL<value>にトークン付きでPOSTリクエストを送る
+* TaskCanvasにログインする
+* URL<value>にAuthorizationTokenを含めてPOSTリクエストを送る
