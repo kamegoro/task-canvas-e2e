@@ -63,6 +63,17 @@ class TaskCanvas {
         authorizationToken = response.headers().firstValue("Authorization").get()
     }
 
+    @Step("URL<url>にDELETEリクエストを送る")
+    fun sendDeleteRequest(url: String) {
+        val request = HttpRequest.newBuilder()
+            .uri(generateEndpoint(url))
+            .header("Authorization", authorizationToken)
+            .DELETE()
+
+        response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+        authorizationToken = response.headers().firstValue("Authorization").get()
+    }
+
     @Step("レスポンスボディにJSONでキー<key>で値<value>が含まれている")
     fun responseBodyContains(key: String, value: String) {
         assertThat(response.body()).contains("\"$key\":\"$value\"")

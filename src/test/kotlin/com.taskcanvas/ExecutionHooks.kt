@@ -26,7 +26,6 @@ class ExecutionHooks {
         val fixturesPath = "${projectDir}/fixtures/$removedSpecDirectory/task_canvas"
 
         val tableOrderingFile = File("$fixturesPath/table_ordering.txt")
-        println(tableOrderingFile.exists())
         if (tableOrderingFile.exists()) {
             val sqlFiles = tableOrderingFile.readLines()
 
