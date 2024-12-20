@@ -56,7 +56,7 @@ class TaskCanvas {
     fun sendPutRequest(url: String, requestBody: String) {
         val request = HttpRequest.newBuilder()
             .uri(generateEndpoint(url))
-            .header("Content-Type", "application/json")
+            .headers("Content-Type", "application/json", "Authorization", authorizationToken)
             .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
