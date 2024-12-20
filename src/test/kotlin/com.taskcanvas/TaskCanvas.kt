@@ -52,6 +52,17 @@ class TaskCanvas {
         authorizationToken = response.headers().firstValue("Authorization").get()
     }
 
+    @Step("URL<url>にボディ<requestBody>で、PUTリクエストを送る")
+    fun sendPutRequest(url: String, requestBody: String) {
+        val request = HttpRequest.newBuilder()
+            .uri(generateEndpoint(url))
+            .header("Content-Type", "application/json")
+            .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+
+        response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+        authorizationToken = response.headers().firstValue("Authorization").get()
+    }
+
     @Step("URL<url>にAuthorizationTokenを含めてGETリクエストを送る")
     fun sendGetRequest(url: String) {
         val request = HttpRequest.newBuilder()
