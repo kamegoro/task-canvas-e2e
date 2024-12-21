@@ -17,10 +17,10 @@ class TaskCanvas {
     private lateinit var response: HttpResponse<String>
     private lateinit var authorizationToken: String
 
-    @Step("v1/systems/pingにリクエストを送るとpongが返ってくる")
+    @Step("task-canvas/v1/systems/pingにリクエストを送るとpongが返ってくる")
     fun pingPong() {
         val request = HttpRequest.newBuilder()
-            .uri(generateEndpoint("/v1/systems/ping"))
+            .uri(generateEndpoint("/task-canvas/v1/systems/ping"))
             .GET()
             .build()
 
