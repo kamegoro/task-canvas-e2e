@@ -1,2 +1,5 @@
+# /v1/todosにPOSTリクエストを送る
+* URL"url"にボディ"requestBody"で、POSTリクエストを送る
+
 # レスポンスボディに新規作成したTODOのIDが含まれている
 * レスポンスボディにJSONでキー"$.id"が含まれている
