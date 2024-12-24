@@ -4,12 +4,10 @@ import com.jayway.jsonpath.JsonPath
 import com.thoughtworks.gauge.Step
 import com.thoughtworks.gauge.datastore.ScenarioDataStore
 import org.assertj.core.api.Assertions.assertThat
-import java.io.FileInputStream
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.net.URI
-import java.util.Properties
 
 class TaskCanvas {
     private val baseUrl = readBaseUrl()
@@ -17,16 +15,9 @@ class TaskCanvas {
     private lateinit var response: HttpResponse<String>
     private lateinit var authorizationToken: String
 
-    @Step("task-canvas/v1/systems/pingにリクエストを送るとpongが返ってくる")
-    fun pingPong() {
-        val request = HttpRequest.newBuilder()
-            .uri(generateEndpoint("/task-canvas/v1/systems/ping"))
-            .GET()
-            .build()
-
-        response = client.send(request, HttpResponse.BodyHandlers.ofString())
-
-        assertThat( response.body() ).isEqualTo("pong")
+    @Step("レスポンスボディにテキスト<text>が含まれている")
+    fun responseBodyContainsText(text: String) {
+        assertThat(response.body()).contains(text)
     }
 
     @Step("ステータスコードが<status>である")
@@ -39,11 +30,23 @@ class TaskCanvas {
         assertThat(response.headers().firstValue("Authorization").get().isNotEmpty())
     }
 
+    @Step("API<apiName>のURL<url>にGETリクエストを送る")
+    fun setGetRequestToTargetApi(apiName: String, url: String) {
+        val request = HttpRequest.newBuilder()
+            .uri(generateApiEndpoint(apiName, url))
+            .GET()
+
+        println("URL: ${generateApiEndpoint(apiName, url)}")
+
+        response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+        println("Response: ${response.body()}")
+    }
+
     @Step("URL<url>にボディ<requestBody>で、POSTリクエストを送る")
     fun sendRequest(url: String, requestBody: String) {
         val request = HttpRequest.newBuilder()
             .uri(generateEndpoint(url))
-            .header("Content-Type", "application/json")
+            .headers("Content-Type", "application/json", "Authorization", authorizationToken)
             .POST(HttpRequest.BodyPublishers.ofString(requestBody))
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
@@ -83,6 +86,17 @@ class TaskCanvas {
         ScenarioDataStore.put("returnedToken", authorizationToken)
     }
 
+    @Step("URL<url>にボディ<body>で、AuthorizationTokenを含めずにPOSTリクエストを送る")
+    fun sendPostRequestWithoutAuthorization(url: String, body: String) {
+        val request = HttpRequest.newBuilder()
+            .uri(generateEndpoint(url))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(body))
+
+        response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
+        authorizationToken = response.headers().firstValue("Authorization").get()
+    }
+
     @Step("URL<url>にDELETEリクエストを送る")
     fun sendDeleteRequest(url: String) {
         val request = HttpRequest.newBuilder()
@@ -115,7 +129,7 @@ class TaskCanvas {
 
     @Step("返却されたトークンがリクエストに使ったトークンと異なる")
     fun tokenIsDifferent() {
-       assertThat(ScenarioDataStore.get("returnedToken")).isNotEqualTo(authorizationToken)
+        assertThat(ScenarioDataStore.get("returnedToken")).isNotEqualTo(authorizationToken)
     }
 
     @Step("pass")
@@ -124,13 +138,22 @@ class TaskCanvas {
     }
 
     private fun readBaseUrl(): String {
-       val  properties = Properties()
-       val propertiesFile = "src/test/resources/gauge.properties"
-        FileInputStream(propertiesFile).use { properties.load(it) }
-        return properties.getProperty("rest.baseUrl")
+        return config.taskCanvas.rest.baseUrl
     }
 
     private fun generateEndpoint(url: String): URI {
         return URI.create("$baseUrl$url")
+    }
+
+    private fun generateApiEndpoint(apiName: String, url: String): URI {
+        if (apiName == "taskCanvas") {
+            return URI.create("${config.taskCanvas.rest.baseUrl}$url")
+        }
+
+        if (apiName == "taskCanvasTagManager") {
+            return URI.create("${config.taskCanvasTagManager.rest.baseUrl}$url")
+        }
+
+        throw IllegalArgumentException("Invalid API name")
     }
 }

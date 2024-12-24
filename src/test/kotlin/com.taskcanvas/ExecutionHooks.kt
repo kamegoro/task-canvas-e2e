@@ -29,7 +29,7 @@ class ExecutionHooks {
         if (tableOrderingFile.exists()) {
             val sqlFiles = tableOrderingFile.readLines()
 
-            val connection =  Database.connection()
+            val connection = Database.connection()
             sqlFiles.forEach { sqlFileName ->
                 val sqlFilePath = Paths.get("$fixturesPath/$sqlFileName.sql")
                 if (Files.exists(sqlFilePath)) {
