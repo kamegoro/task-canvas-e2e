@@ -1,6 +1,2 @@
-#  /v1/signInにリクエストを送るとユーザー登録ができる
-* URL"/v1/signUp"にボディ"{\"email\": \"test@example\", \"password\": \"password\"}"で、POSTリクエストを送る
-* URL"/v1/signIn"にボディ"{\"email\": \"test@example\", \"password\": \"password\"}"で、POSTリクエストを送る
-
-
-
+# /v1/signInにメールアドレス[test@example.com]、パスワード[password]をボディに含めてPOSTリクエストを送る
+* URL"/v1/signIn"にボディ"{\"email\": \"test@example.com\", \"password\": \"password\"}"で、AuthorizationTokenを含めずにPOSTリクエストを送る
