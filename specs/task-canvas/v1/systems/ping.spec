@@ -1,5 +1,5 @@
-# GET /v1/systems/ping
+# GET /v1/systems/ping (task-canvas)
 
-## v1/systems/pingにリクエストを送るとpongが返ってくる
+## TaskCanvasAPIの v1/systems/pingにリクエストを送るとpongが返ってくる
 * v1/systems/pingにリクエストを送るとpongが返ってくる
 * ステータスコードが"200"である
