@@ -1,4 +1,5 @@
 package com.taskcanvas
 
-class TaskCnavasTagManager {
+class TaskCanvasTagManager {
+
 }

@@ -1,0 +1,3 @@
+#  v1/systems/pingにリクエストを送るとpongが返ってくる（TaskCanvasTagManager）
+* API"taskCanvasTagManager"のURL"/v1/systems/ping"にGETリクエストを送る
+* レスポンスボディにテキスト"pong"が含まれている
