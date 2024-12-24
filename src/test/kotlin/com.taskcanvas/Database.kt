@@ -1,9 +1,7 @@
 package com.taskcanvas
 
-import java.io.FileInputStream
 import java.sql.Connection
 import java.sql.DriverManager
-import java.util.Properties
 
 object Database {
     private val jdbcUrl: String = config.taskCanvas.db.jdbcUrl

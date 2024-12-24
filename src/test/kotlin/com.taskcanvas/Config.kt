@@ -3,7 +3,6 @@ package com.taskcanvas
 import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.addEnvironmentSource
 import com.sksamuel.hoplite.addResourceSource
-import com.sksamuel.hoplite.yaml.YamlParser
 
 private const val RESOURCE = "/env.yaml"
 

@@ -4,10 +4,10 @@ import com.jayway.jsonpath.JsonPath
 import com.thoughtworks.gauge.Step
 import com.thoughtworks.gauge.datastore.ScenarioDataStore
 import org.assertj.core.api.Assertions.assertThat
+import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
-import java.net.URI
 
 class TaskCanvas {
     private val baseUrl = readBaseUrl()
