@@ -18,7 +18,8 @@ object Database {
                 val tables = listOf(
                     "task_canvas.user",
                     "task_canvas.todo",
-                    "task_canvas.user_todo"
+                    "task_canvas.user_todo",
+                    "task_canvas.tag"
                 )
 
                 tables.joinToString(",").let { table ->
