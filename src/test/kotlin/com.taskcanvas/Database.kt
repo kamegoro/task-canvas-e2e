@@ -6,20 +6,9 @@ import java.sql.DriverManager
 import java.util.Properties
 
 object Database {
-    private val properties = Properties()
-
-    init {
-        val propertiesFile = "src/test/resources/gauge.properties"
-        FileInputStream(propertiesFile).use { properties.load(it) }
-
-        checkNotNull(properties.getProperty("db.jdbcUrl")) { "db.jdbcUrl is not set" }
-        checkNotNull(properties.getProperty("db.username")) { "db.username is not set" }
-        checkNotNull(properties.getProperty("db.password")) { "db.password is not set" }
-    }
-
-    private val jdbcUrl: String = properties.getProperty("db.jdbcUrl")
-    private val username: String = properties.getProperty("db.username")
-    private val password: String = properties.getProperty("db.password")
+    private val jdbcUrl: String = config.taskCanvas.db.jdbcUrl
+    private val username: String = config.taskCanvas.db.username
+    private val password: String = config.taskCanvas.db.password
 
     fun connection(): Connection = DriverManager.getConnection(jdbcUrl, username, password)
 
