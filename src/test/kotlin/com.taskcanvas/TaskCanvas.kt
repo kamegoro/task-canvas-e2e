@@ -94,7 +94,10 @@ class TaskCanvas {
             .POST(HttpRequest.BodyPublishers.ofString(body))
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
-        authorizationToken = response.headers().firstValue("Authorization").get()
+        val optionToken = response.headers().firstValue("Authorization")
+        if (optionToken.isPresent) {
+            authorizationToken = optionToken.get()
+        }
     }
 
     @Step("URL<url>にDELETEリクエストを送る")

@@ -1,2 +1,5 @@
 # /v1/signInにメールアドレス[test@example.com]、パスワード[password]をボディに含めてPOSTリクエストを送る
 * URL"/v1/signIn"にボディ"{\"email\": \"test@example.com\", \"password\": \"password\"}"で、AuthorizationTokenを含めずにPOSTリクエストを送る
+
+# /v1/signInにパスワード[passowrd]をボディに含めてPOSTリクエストを送る
+* URL"/v1/signIn"にボディ"{\"password\": \"password\"}"で、AuthorizationTokenを含めずにPOSTリクエストを送る
