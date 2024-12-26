@@ -10,3 +10,6 @@
 ## TaskCanvasTagManagerの/v1/tagsにGETリクエストを送ると削除済みのタグが含まれない
 * API"taskCanvasTagManager"のURL"/v1/tags"にGETリクエストを送る
 * レスポンスボディに削除済みのタグが含まれていない
+
+## TaskCanvasTagManagerのv1/tagsにGETリクエストを送るとタグの検索ができる
+* API"taskCanvasTagManager"のURL"/v1/tags?"にGETリクエストを送る
