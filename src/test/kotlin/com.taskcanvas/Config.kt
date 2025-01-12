@@ -14,8 +14,14 @@ val config = ConfigLoaderBuilder.default()
     .loadConfigOrThrow<Config>()
 
 data class Config(
+    val taskCanvasWeb: TaskCanvasWebConfig,
     val taskCanvas: TaskCanvasConfig,
     val taskCanvasTagManager: TaskCanvasTagManagerConfig
+)
+
+data class TaskCanvasWebConfig(
+    val backendHost: String,
+    val backendPort: Int
 )
 
 data class TaskCanvasConfig(
