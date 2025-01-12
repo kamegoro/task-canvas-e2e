@@ -38,6 +38,7 @@ enum class Role {
     Heading,
     Paragraph,
     Link,
+    Alert,
     Textbox;
 
     fun possibleElements() = when (this) {
@@ -45,6 +46,7 @@ enum class Role {
         Heading -> listOf("h1", "h2", "h3", "h4", "h5", "h6")
         Paragraph -> listOf("p")
         Link -> listOf("a")
+        Alert -> listOf("section")
         Textbox -> listOf("input")
     }
 }
