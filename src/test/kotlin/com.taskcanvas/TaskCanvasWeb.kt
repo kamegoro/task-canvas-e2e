@@ -73,12 +73,17 @@ class TaskCanvasWeb {
 
     @Step("ローディングが表示される")
     fun ローディングが表示される() {
-        Locator.getByRole(Role.Alert, "ローディング").first().shouldBe(visible)
+        Locator.getByRoleAll(Role.Div).filter(attribute("aria-busy",  "true")).first().shouldBe(visible)
+    }
+
+    @Step("ローディングが表示されていない")
+    fun ローディングが表示されていない() {
+        Locator.getByRoleAll(Role.Alert).filter(attribute("aria-busy",  "true")).first().shouldNotBe(visible)
     }
 
     @Step("サインインの成功通知が表示される")
     fun サインインの成功通知が表示される() {
-        Locator.getByRole(Role.Alert, "ログインに成功しました").first().shouldBe(visible)
+        Locator.getByRoleAll(Role.Alert).filter(attribute("aria-label",  "ログインに成功しました")).first().shouldBe(visible)
     }
 
     @Step("TODO一覧ページが表示されている")

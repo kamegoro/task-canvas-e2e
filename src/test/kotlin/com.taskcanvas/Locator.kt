@@ -14,6 +14,9 @@ object Locator {
 
     private fun roleToXpath(role: Role, accessibleName: String): String {
         val xPaths = when (role) {
+            Role.Alert -> role.possibleElements().map {
+                "//$it[@aria-label='$accessibleName' and @role='alert']"
+            }
             else -> role.possibleElements().map {
                 "//$it[text()='${accessibleName}']"
             }
@@ -23,11 +26,14 @@ object Locator {
     }
 
     private fun roleToXpathAll(role: Role): String {
-        val xPaths =
-            role.possibleElements().map {
+        val xPaths = when (role) {
+            Role.Alert -> role.possibleElements().map {
+                "//$it[@role='alert']"
+            }
+            else -> role.possibleElements().map {
                 "//$it"
             }
-
+        }
 
         return xPaths.joinToString(" | ")
     }
@@ -39,6 +45,7 @@ enum class Role {
     Paragraph,
     Link,
     Alert,
+    Div,
     Textbox;
 
     fun possibleElements() = when (this) {
@@ -46,7 +53,8 @@ enum class Role {
         Heading -> listOf("h1", "h2", "h3", "h4", "h5", "h6")
         Paragraph -> listOf("p")
         Link -> listOf("a")
-        Alert -> listOf("section")
+        Alert -> listOf("div")
+        Div -> listOf("div")
         Textbox -> listOf("input")
     }
 }
