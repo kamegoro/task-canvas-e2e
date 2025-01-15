@@ -54,12 +54,13 @@ class ExecutionHooks {
     }
 
     private fun setUpMocks(executionContext: ExecutionContext) {
-        val specResourcePath = executionContext.getSpecResourcePath()
-        val mockDirPath = "$specResourcePath/mappings"
-        val mockDir = File(mockDirPath)
-        if (mockDir.exists() && mockDir.isDirectory) {
-            mockDir.listFiles { file -> file.extension == "json" }?.forEach { jsonFile ->
-                TaskCanvasApiForWeb.loadMapping(jsonFile)
+        mapOf(
+            TaskCanvasApiForWeb to "task_canvas_api"
+        ).forEach { (mock, dir) ->
+            val mappingsPath = executionContext.getSpecResourcePath()
+            val mappingsFile = Paths.get("fixtures//$mappingsPath/$dir")
+            if (Files.exists(mappingsFile)) {
+                mock.loadMappingsFrom(mappingsFile.toFile())
             }
         }
     }
