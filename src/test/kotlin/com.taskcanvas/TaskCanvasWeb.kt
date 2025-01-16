@@ -4,12 +4,21 @@ import com.codeborne.selenide.Condition.attribute
 import com.codeborne.selenide.Condition.visible
 import com.codeborne.selenide.Selenide.open
 import com.thoughtworks.gauge.Step
-import net.bytebuddy.asm.Advice.Local
 
 class TaskCanvasWeb {
-    @Step("サインインページにアクセスする")
+    @Step("サインイン画面にアクセスする")
     fun サインイン画面にアクセスする() {
         open("http://localhost:3000/signin")
+    }
+
+    @Step("トップ画面にアクセスする")
+    fun トップ画面にアクセスする() {
+        open("http://localhost:3000/")
+    }
+
+    @Step("画面<url>にアクセスする")
+    fun 画面にアクセスする(url: String) {
+        open(url)
     }
 
     @Step("サインイン画面のタイトルにTask Canvasが表示されている")
@@ -17,9 +26,29 @@ class TaskCanvasWeb {
         Locator.getByRole(Role.Heading, "Task Canvas").first().shouldBe(visible)
     }
 
+    @Step("見出し<text>が表示されている")
+    fun 見出しが表示されている(text: String) {
+        Locator.getByRole(Role.Heading, text).first().shouldBe(visible)
+    }
+
     @Step("サインイン画面の説明文が表示されている")
     fun サインイン画面の説明文が表示されている() {
         Locator.getByRole(Role.Paragraph, "ユーザー情報を入力してください。").first().shouldBe(visible)
+    }
+
+    @Step("文章<text>が表示されている")
+    fun 文章が表示されている(text: String) {
+        Locator.getByRole(Role.Paragraph, text).first().shouldBe(visible)
+    }
+
+    @Step("リンク<text>が表示されている")
+    fun リンクが表示されている(text: String) {
+        Locator.getByRole(Role.Link, text).first().shouldBe(visible)
+    }
+
+    @Step("ボタン<text>が表示されている")
+    fun ボタンが表示されている(text: String) {
+        Locator.getByRole(Role.Button, text).first().shouldBe(visible)
     }
 
     @Step("メールアドレスの入力フォームが表示されている")
