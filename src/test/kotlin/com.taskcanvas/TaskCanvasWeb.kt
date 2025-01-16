@@ -6,34 +6,14 @@ import com.codeborne.selenide.Selenide.open
 import com.thoughtworks.gauge.Step
 
 class TaskCanvasWeb {
-    @Step("サインイン画面にアクセスする")
-    fun サインイン画面にアクセスする() {
-        open("http://localhost:3000/signin")
-    }
-
-    @Step("トップ画面にアクセスする")
-    fun トップ画面にアクセスする() {
-        open("http://localhost:3000/")
-    }
-
     @Step("画面<url>にアクセスする")
     fun 画面にアクセスする(url: String) {
         open(url)
     }
 
-    @Step("サインイン画面のタイトルにTask Canvasが表示されている")
-    fun タイトルにTaskCanvasが表示されている() {
-        Locator.getByRole(Role.Heading, "Task Canvas").first().shouldBe(visible)
-    }
-
     @Step("見出し<text>が表示されている")
     fun 見出しが表示されている(text: String) {
         Locator.getByRole(Role.Heading, text).first().shouldBe(visible)
-    }
-
-    @Step("サインイン画面の説明文が表示されている")
-    fun サインイン画面の説明文が表示されている() {
-        Locator.getByRole(Role.Paragraph, "ユーザー情報を入力してください。").first().shouldBe(visible)
     }
 
     @Step("文章<text>が表示されている")
@@ -67,16 +47,6 @@ class TaskCanvasWeb {
             .shouldBe(visible)
     }
 
-    @Step("サインインボタンが表示されている")
-    fun サインボタンが表示されている() {
-        Locator.getByRole(Role.Button, "サインイン").first().shouldBe(visible)
-    }
-
-    @Step("サインアップへの遷移リンクが表示されている")
-    fun サインアップへの遷移リンクが表示されている() {
-        Locator.getByRole(Role.Button, "サインアップ").first().shouldBe(visible)
-    }
-
     @Step("メールの入力欄に<email>を入力する")
     fun メールアドレスに値を入力する(email: String) {
         Locator.getByRoleAll(Role.Textbox)
@@ -95,9 +65,9 @@ class TaskCanvasWeb {
             .sendKeys(password)
     }
 
-    @Step("サインインボタンをクリックする")
-    fun サインインボタンをクリックする() {
-        Locator.getByRole(Role.Button, "サインイン").first().click()
+    @Step("ボタン<text>をクリックする")
+    fun ボタンをクリックする(text: String) {
+        Locator.getByRole(Role.Button, text).first().click()
     }
 
     @Step("ローディングが表示される")
@@ -110,14 +80,9 @@ class TaskCanvasWeb {
         Locator.getByRoleAll(Role.Alert).filter(attribute("aria-busy",  "true")).first().shouldNotBe(visible)
     }
 
-    @Step("サインインの成功通知が表示される")
-    fun サインインの成功通知が表示される() {
-        Locator.getByRoleAll(Role.Alert).filter(attribute("aria-label",  "ログインに成功しました")).first().shouldBe(visible)
-    }
-
-    @Step("TODO一覧ページが表示されている")
-    fun Todo一覧ページが表示されている() {
-        Locator.getByRole(Role.Paragraph, "My Todo-s").first().shouldBe(visible)
+    @Step("アラート<text>が表示されている")
+    fun アラートが表示されている(text: String) {
+        Locator.getByRole(Role.Alert, text).first().shouldBe(visible)
     }
 }
 
