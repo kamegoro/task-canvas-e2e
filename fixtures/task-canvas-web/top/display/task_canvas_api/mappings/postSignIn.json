@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/signIn",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "equalToJson": {
+          "email": "test@example.com",
+          "password": "password"
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Authorization": "token"
+    }
+  }
+}
