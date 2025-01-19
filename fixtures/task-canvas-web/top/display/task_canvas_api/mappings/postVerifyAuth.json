@@ -1,25 +1,17 @@
 {
   "request": {
     "method": "POST",
-    "url": "/v1/signIn",
+    "url": "/v1/verifyAuth",
     "headers": {
-      "Content-Type": {
-        "equalTo": "application/json"
+      "Authorization": {
+        "equalTo": "Bearer token"
       }
-    },
-    "bodyPatterns": [
-      {
-        "equalToJson": {
-          "email": "test@example.com",
-          "password": "password"
-        }
-      }
-    ]
+    }
   },
   "response": {
     "status": 200,
     "headers": {
-      "Authorization": "token"
+      "Authorization": "Bearer token"
     }
   }
 }

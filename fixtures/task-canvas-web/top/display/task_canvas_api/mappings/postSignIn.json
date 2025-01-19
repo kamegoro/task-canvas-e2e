@@ -19,7 +19,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "Authorization": "token"
+      "Authorization": "Bearer token"
     }
   }
 }

@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/v1/todos",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer token"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "todos": [
+        {
+          "id": "1",
+          "content": "Buy milk",
+          "completed": false
+        },
+        {
+          "id": "2",
+          "content": "Buy eggs",
+          "completed": true
+        }
+      ]
+    },
+    "headers": {
+      "Authorization": "Bearer token"
+    }
+  }
+}
