@@ -31,6 +31,11 @@ class TaskCanvasWeb {
         Locator.getByRole(Role.Link, text).first().shouldBe(visible)
     }
 
+    @Step("リンク<text>をクリックする")
+    fun リンクをクリックする(text: String) {
+        Locator.getByRole(Role.Link, text).first().click()
+    }
+
     @Step("ボタン<text>が表示されている")
     fun ボタンが表示されている(text: String) {
         Locator.getByRole(Role.Button, text).first().shouldBe(visible)
