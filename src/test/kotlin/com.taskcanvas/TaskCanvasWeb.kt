@@ -21,6 +21,11 @@ class TaskCanvasWeb {
         Locator.getByRole(Role.Paragraph, text).first().shouldBe(visible)
     }
 
+    @Step("文章<text>が表示されていない")
+    fun 文章が表示されていない(text: String) {
+        Locator.getByRole(Role.Paragraph, text).first().shouldNotBe(visible)
+    }
+
     @Step("リンク<text>が表示されている")
     fun リンクが表示されている(text: String) {
         Locator.getByRole(Role.Link, text).first().shouldBe(visible)
