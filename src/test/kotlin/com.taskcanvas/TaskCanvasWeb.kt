@@ -41,6 +41,11 @@ class TaskCanvasWeb {
         Locator.getByRole(Role.Button, text).first().shouldBe(visible)
     }
 
+    @Step("アイコン<name>が表示されている")
+    fun アイコンが表示されている(name: String) {
+        Locator.getByRole(Role.Svg, name).first().shouldBe(visible)
+    }
+
     @Step("メールアドレスの入力フォームが表示されている")
     fun メールアドレスの入力フォームが表示されている() {
         Locator.getByRoleAll(Role.Textbox)
@@ -93,6 +98,10 @@ class TaskCanvasWeb {
     @Step("アラート<text>が表示されている")
     fun アラートが表示されている(text: String) {
         Locator.getByRole(Role.Alert, text).first().shouldBe(visible)
+    }
+
+    @Step("フォーム<label>が表示されている")
+    fun フォームが表示されている(label: String) {
     }
 }
 

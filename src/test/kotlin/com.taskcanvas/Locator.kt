@@ -46,6 +46,7 @@ enum class Role {
     Link,
     Alert,
     Div,
+    Svg,
     Textbox;
 
     fun possibleElements() = when (this) {
@@ -55,6 +56,7 @@ enum class Role {
         Link -> listOf("a")
         Alert -> listOf("div")
         Div -> listOf("div")
+        Svg -> listOf("svg")
         Textbox -> listOf("input")
     }
 }
