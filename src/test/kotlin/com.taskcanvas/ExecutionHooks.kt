@@ -1,9 +1,5 @@
 package com.taskcanvas
 
-import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration
-import com.github.tomakehurst.wiremock.standalone.MappingsLoader
-import com.thoughtworks.gauge.AfterSpec
 import com.thoughtworks.gauge.BeforeSpec
 import com.thoughtworks.gauge.ExecutionContext
 import java.io.File
