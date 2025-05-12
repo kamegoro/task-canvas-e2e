@@ -9,11 +9,15 @@ import java.nio.file.Paths
 class ExecutionHooks {
     @BeforeSpec
     fun setUp(executionContext: ExecutionContext) {
-        cleanUpDb()
-        resetAllMocks()
+        if (isTaskCanvasApi(executionContext)) {
+            cleanUpDb()
+            setUpData(executionContext)
+        }
 
-        setUpMocks(executionContext)
-        setUpData(executionContext)
+        if (isTaskCanvasWeb(executionContext)) {
+            resetTaskCanvasApiMock()
+            setUpMocks(executionContext)
+        }
     }
 
     private fun cleanUpDb() {
@@ -45,7 +49,7 @@ class ExecutionHooks {
         }
     }
 
-    private fun resetAllMocks() {
+    private fun resetTaskCanvasApiMock() {
         TaskCanvasApiForWeb.resetToDefaultMappings()
     }
 
@@ -67,5 +71,17 @@ class ExecutionHooks {
             .split("/").drop(1).dropLast(1).joinToString("/")
 
         return "$specDir/${File(fileName).nameWithoutExtension}"
+    }
+
+    private fun isTaskCanvasApi(executionContext: ExecutionContext): Boolean {
+        val specFilePath = executionContext.currentSpecification.fileName
+
+        return specFilePath.contains("specs/task-canvas/")
+    }
+
+    private fun isTaskCanvasWeb(executionContext: ExecutionContext): Boolean {
+        val specFilePath = executionContext.currentSpecification.fileName
+
+        return specFilePath.contains("specs/task-canvas-web/")
     }
 }
