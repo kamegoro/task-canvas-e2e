@@ -18,6 +18,7 @@
   },
   "response": {
     "status": 200,
+    "fixedDelayMilliseconds": 500,
     "headers": {
       "Authorization": "token"
     }
