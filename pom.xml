@@ -78,6 +78,7 @@
     </dependencies>
 
     <build>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <testResources>
             <testResource>
                 <directory>${project.basedir}/src/test/resources</directory>
