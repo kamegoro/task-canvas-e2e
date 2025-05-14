@@ -22,7 +22,6 @@
             <groupId>com.thoughtworks.gauge</groupId>
             <artifactId>gauge-java</artifactId>
             <version>${gauge.java.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -79,7 +78,6 @@
     </dependencies>
 
     <build>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <testResources>
             <testResource>
                 <directory>${project.basedir}/src/test/resources</directory>
