@@ -1,12 +1,19 @@
 package com.taskcanvas
 
+import com.codeborne.selenide.Configuration
 import com.thoughtworks.gauge.BeforeSpec
+import com.thoughtworks.gauge.BeforeSuite
 import com.thoughtworks.gauge.ExecutionContext
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 
 class ExecutionHooks {
+    @BeforeSuite
+    fun beforeSuite() {
+        prepareSelenide()
+    }
+
     @BeforeSpec
     fun setUp(executionContext: ExecutionContext) {
         if (isTaskCanvasApi(executionContext)) {
@@ -83,5 +90,11 @@ class ExecutionHooks {
         val specFilePath = executionContext.currentSpecification.fileName
 
         return specFilePath.contains("specs/task-canvas-web/")
+    }
+
+    private fun prepareSelenide() {
+        with (config.selenide) {
+            Configuration.headless = headless
+        }
     }
 }
