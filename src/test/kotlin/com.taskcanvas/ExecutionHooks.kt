@@ -105,6 +105,7 @@ class ExecutionHooks {
             Configuration.browserCapabilities = ChromeOptions().apply {
                 addArguments("--incongnito")
             }
+            Configuration.timeout = timeout
         }
     }
 }
