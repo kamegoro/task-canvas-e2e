@@ -26,7 +26,10 @@ data class TaskCanvasWebConfig(
 )
 
 data class TaskCanvasSelenideConfig (
+    val baseUrl: String,
     val headless: Boolean,
+    val remote: String?,
+    val browser: String,
 )
 
 data class TaskCanvasConfig(

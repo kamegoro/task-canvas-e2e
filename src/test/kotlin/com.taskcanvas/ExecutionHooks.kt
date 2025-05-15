@@ -94,7 +94,10 @@ class ExecutionHooks {
 
     private fun prepareSelenide() {
         with (config.selenide) {
+            Configuration.baseUrl = baseUrl
             Configuration.headless = headless
+            Configuration.remote = remote
+            Configuration.browser = browser
         }
     }
 }
