@@ -30,6 +30,8 @@ data class TaskCanvasSelenideConfig (
     val headless: Boolean,
     val remote: String?,
     val browser: String,
+    val reopenBrowserOnFail: Boolean,
+    val holdBrowserOpen: Boolean
 )
 
 data class TaskCanvasConfig(

@@ -1,19 +1,18 @@
 package com.taskcanvas
 
 import com.codeborne.selenide.Configuration
+import com.codeborne.selenide.WebDriverRunner
+import com.thoughtworks.gauge.AfterStep
+import com.thoughtworks.gauge.AfterSuite
 import com.thoughtworks.gauge.BeforeSpec
 import com.thoughtworks.gauge.BeforeSuite
 import com.thoughtworks.gauge.ExecutionContext
+import org.openqa.selenium.chrome.ChromeOptions
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 
 class ExecutionHooks {
-    @BeforeSuite
-    fun beforeSuite() {
-        prepareSelenide()
-    }
-
     @BeforeSpec
     fun setUp(executionContext: ExecutionContext) {
         if (isTaskCanvasApi(executionContext)) {
@@ -22,6 +21,9 @@ class ExecutionHooks {
         }
 
         if (isTaskCanvasWeb(executionContext)) {
+            WebDriverRunner.closeWebDriver()
+            prepareSelenide()
+
             resetTaskCanvasApiMock()
             setUpMocks(executionContext)
         }
@@ -98,6 +100,11 @@ class ExecutionHooks {
             Configuration.headless = headless
             Configuration.remote = remote
             Configuration.browser = browser
+            Configuration.reopenBrowserOnFail = reopenBrowserOnFail
+            Configuration.holdBrowserOpen = holdBrowserOpen
+            Configuration.browserCapabilities = ChromeOptions().apply {
+                addArguments("--incongnito")
+            }
         }
     }
 }
