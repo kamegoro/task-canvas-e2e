@@ -2,12 +2,12 @@ package com.taskcanvas
 
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.WebDriverRunner
-import com.thoughtworks.gauge.AfterStep
-import com.thoughtworks.gauge.AfterSuite
+import com.thoughtworks.gauge.AfterSpec
 import com.thoughtworks.gauge.BeforeSpec
-import com.thoughtworks.gauge.BeforeSuite
 import com.thoughtworks.gauge.ExecutionContext
+import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.logging.LogType
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -26,6 +26,33 @@ class ExecutionHooks {
 
             resetTaskCanvasApiMock()
             setUpMocks(executionContext)
+        }
+    }
+
+    @AfterSpec
+    fun logDevToolsOnFailure(executionContext: ExecutionContext) {
+        if (isTaskCanvasWeb(executionContext) && executionContext.currentSpecification.isFailing) {
+            println("ステップ失敗のため、ネットワークとブラウザログを出力します")
+            val driver = WebDriverRunner.getWebDriver()
+            try {
+                val performanceLog = driver.manage().logs().get(LogType.PERFORMANCE)
+                println("=== ネットワークログ ===")
+                performanceLog.forEach {
+                    println(it.message)
+                }
+            } catch (e: Exception) {
+                println("ネットワークログの取得に失敗しました: ${e.message}")
+            }
+
+            try {
+                val browserLog = driver.manage().logs().get(LogType.BROWSER)
+                println("=== ブラウザログ ===")
+                browserLog.forEach {
+                    println(it.message)
+                }
+            } catch (e: Exception) {
+                println("ブラウザログの取得に失敗しました: ${e.message}")
+            }
         }
     }
 
