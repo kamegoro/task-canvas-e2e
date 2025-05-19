@@ -3,7 +3,6 @@ package com.taskcanvas
 import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.addEnvironmentSource
 import com.sksamuel.hoplite.addResourceSource
-import org.openqa.selenium.WebDriver.Timeouts
 
 private const val RESOURCE = "/env.yaml"
 
@@ -26,7 +25,7 @@ data class TaskCanvasWebConfig(
     val backendPort: Int
 )
 
-data class TaskCanvasSelenideConfig (
+data class TaskCanvasSelenideConfig(
     val baseUrl: String,
     val headless: Boolean,
     val remote: String?,

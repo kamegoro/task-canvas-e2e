@@ -87,12 +87,12 @@ class TaskCanvasWeb {
 
     @Step("ローディングが表示される")
     fun ローディングが表示される() {
-        Locator.getByRoleAll(Role.Div).filter(attribute("aria-busy",  "true")).first().shouldBe(visible)
+        Locator.getByRoleAll(Role.Div).filter(attribute("aria-busy", "true")).first().shouldBe(visible)
     }
 
     @Step("ローディングが表示されていない")
     fun ローディングが表示されていない() {
-        Locator.getByRoleAll(Role.Alert).filter(attribute("aria-busy",  "true")).first().shouldNotBe(visible)
+        Locator.getByRoleAll(Role.Alert).filter(attribute("aria-busy", "true")).first().shouldNotBe(visible)
     }
 
     @Step("アラート<text>が表示されている")

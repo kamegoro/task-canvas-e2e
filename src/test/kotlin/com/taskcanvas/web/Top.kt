@@ -1,7 +1,8 @@
 package com.taskcanvas.web
 
-import com.codeborne.selenide.Selenide.*
 import com.codeborne.selenide.Condition.*
+import com.codeborne.selenide.Selenide.`$`
+import com.codeborne.selenide.Selenide.`$$`
 import com.thoughtworks.gauge.Step
 
 class Top {
@@ -33,7 +34,7 @@ class Top {
             .shouldHave(disabled)
     }
 
-   @Step("TODOの入力フォームにカレンダーアイコンが表示されている")
+    @Step("TODOの入力フォームにカレンダーアイコンが表示されている")
     fun todoの入力フォームにカレンダーアイコンが表示されている() {
         `$$`("form").findBy(attribute("aria-label", "todo-form"))
             .`$`("svg")

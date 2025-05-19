@@ -5,7 +5,6 @@ import com.codeborne.selenide.WebDriverRunner
 import com.thoughtworks.gauge.AfterSpec
 import com.thoughtworks.gauge.BeforeSpec
 import com.thoughtworks.gauge.ExecutionContext
-import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.logging.LogType
 import java.io.File
@@ -122,7 +121,7 @@ class ExecutionHooks {
     }
 
     private fun prepareSelenide() {
-        with (config.selenide) {
+        with(config.selenide) {
             Configuration.baseUrl = baseUrl
             Configuration.headless = headless
             Configuration.remote = remote

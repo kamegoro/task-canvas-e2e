@@ -17,6 +17,7 @@ object Locator {
             Role.Alert -> role.possibleElements().map {
                 "//$it[@aria-label='$accessibleName' and @role='alert']"
             }
+
             else -> role.possibleElements().map {
                 "//$it[text()='${accessibleName}']"
             }
@@ -30,6 +31,7 @@ object Locator {
             Role.Alert -> role.possibleElements().map {
                 "//$it[@role='alert']"
             }
+
             else -> role.possibleElements().map {
                 "//$it"
             }
