@@ -46,4 +46,10 @@ class Top {
     fun todoの進捗率が表示されている() {
         `$`("task-progress").shouldBe(visible)
     }
+
+    @Step("Input<name>にテキスト<value>を入力する")
+    fun inputにテキストを入力する(name: String, value: String) {
+        `$$`("input").findBy(attribute("name", name))
+            .sendKeys(value)
+    }
 }
