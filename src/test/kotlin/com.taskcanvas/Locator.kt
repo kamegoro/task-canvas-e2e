@@ -42,6 +42,8 @@ object Locator {
 }
 
 enum class Role {
+    List,
+    Form,
     Button,
     Heading,
     Paragraph,
@@ -52,6 +54,8 @@ enum class Role {
     Textbox;
 
     fun possibleElements() = when (this) {
+        List -> listOf("ul")
+        Form -> listOf("form")
         Button -> listOf("button")
         Heading -> listOf("h1", "h2", "h3", "h4", "h5", "h6")
         Paragraph -> listOf("p")

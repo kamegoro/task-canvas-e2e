@@ -1,7 +1,6 @@
 package com.taskcanvas
 
-import com.codeborne.selenide.Condition.attribute
-import com.codeborne.selenide.Condition.visible
+import com.codeborne.selenide.Condition.*
 import com.codeborne.selenide.Selenide.open
 import com.thoughtworks.gauge.Step
 
@@ -85,6 +84,127 @@ class TaskCanvasWeb {
         Locator.getByRole(Role.Button, text).first().click()
     }
 
+    @Step("ボタン<text>が活性である")
+    fun ボタンが活性である(text: String) {
+        Locator.getByRole(Role.Button, text).first().shouldNotHave(attribute("disabled"))
+    }
+
+    @Step("ボタン<text>が非活性である")
+    fun ボタンが非活性である(text: String) {
+        Locator.getByRole(Role.Button, text).first().shouldHave(attribute("disabled"))
+    }
+
+    @Step("フォーム<formLabel>のボタン<buttonText>をクリックする")
+    fun フォームのボタンをクリックする(formLabel: String, buttonText: String) {
+        val form = Locator.getByRole(Role.Form, formLabel).first()
+        form.`$$`("button")
+            .filter(exactText(buttonText))
+            .first()
+            .click()
+    }
+
+    @Step("フォーム<formLabel>のInput<name>にテキスト<text>を入力する")
+    fun フォームのInputにテキストを入力する(formLabel: String, name: String, text: String) {
+        val form = Locator.getByRole(Role.Form, formLabel).first()
+        form.`$$`("input")
+            .filter(attribute("name", name))
+            .first()
+            .sendKeys(text)
+    }
+
+    @Step("フォーム<formLabel>のボタン<buttonText>の属性<attribute>が<value>である")
+    fun フォームのボタンの属性がである(formLabel: String, buttonText: String, attribute: String, value: String) {
+        val form = Locator.getByRole(Role.Form, formLabel).first()
+        form.`$$`("button")
+            .filter(exactText(buttonText))
+            .first()
+            .shouldHave(attribute(attribute, value))
+    }
+
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>が表示されている")
+    fun リストのリストアイテムに要素が表示されている(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+            .`$`(element)
+            .shouldBe(visible)
+    }
+
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>が表示されていない")
+    fun リストのリストアイテムに要素が表示されていない(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+            .`$`(element)
+            .shouldNotBe(visible)
+    }
+
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>の属性<attribute>が<value>である")
+    fun リストにリストアイテムの要素の属性がである(listRoleLabel: String, listItemRoleLabel: String, text: String, element: String, attribute: String, value: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .filter(exactText(text))
+            .first()
+            .`$`(element)
+            .shouldHave(attribute(attribute, value))
+    }
+
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>をクリックする")
+    fun リストのリストアイテムに要素をクリックする(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+            .`$`(element)
+            .click()
+    }
+
+    @Step("リスト<listRoleLabel>にテキスト<text>のリストアイテム<listItemRoleLabel>が表示されている")
+    fun リストの要素が表示されている(listRoleLabel: String, text: String, element: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(exactText(text))
+            .first()
+            .`$`(element)
+            .shouldBe(visible)
+    }
+
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>にカーソルを合わせる")
+    fun リストの要素にカーソルを合わせる(listRoleLabel: String, text: String, listItemRoleLabel: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+            .hover()
+    }
+
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に属性<attribute>が<value>の要素が表示されている")
+    fun リストの要素が表示されている(listRoleLabel: String, text: String, listItemRoleLabel: String, attribute: String, value: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+            .shouldHave(attribute(attribute, value))
+    }
+
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に属性<attribute>が<value>の要素が表示されていない")
+    fun リストの要素が表示されていない(listRoleLabel: String, text: String, listItemRoleLabel: String, attribute: String, value: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+            .shouldNotHave(attribute(attribute, value))
+    }
+
     @Step("ローディングが表示される")
     fun ローディングが表示される() {
         Locator.getByRoleAll(Role.Div).filter(attribute("aria-busy", "true")).first().shouldBe(visible)
@@ -98,10 +218,6 @@ class TaskCanvasWeb {
     @Step("アラート<text>が表示されている")
     fun アラートが表示されている(text: String) {
         Locator.getByRole(Role.Alert, text).first().shouldBe(visible)
-    }
-
-    @Step("フォーム<label>が表示されている")
-    fun フォームが表示されている(label: String) {
     }
 }
 
