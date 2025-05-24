@@ -15,13 +15,8 @@
       "todos": [
         {
           "id": "1",
-          "content": "Buy milk",
+          "content": "古いTODO",
           "completed": false
-        },
-        {
-          "id": "2",
-          "content": "Buy eggs",
-          "completed": true
         }
       ]
     },

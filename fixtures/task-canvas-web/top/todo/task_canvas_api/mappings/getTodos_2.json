@@ -4,7 +4,7 @@
     "url": "/v1/todos",
     "headers": {
       "Authorization": {
-        "equalTo": "Bearer token"
+        "equalTo": "Bearer token second"
       }
     }
   },
@@ -15,18 +15,18 @@
       "todos": [
         {
           "id": "1",
-          "content": "Buy milk",
+          "content": "古いTODO",
           "completed": false
         },
         {
           "id": "2",
-          "content": "Buy eggs",
-          "completed": true
+          "content": "新しいTODO",
+          "completed": false
         }
       ]
     },
     "headers": {
-      "Authorization": "Bearer token"
+      "Authorization": "Bearer token third"
     }
   }
 }
