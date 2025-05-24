@@ -18,6 +18,14 @@ object Locator {
                 "//$it[@aria-label='$accessibleName' and @role='alert']"
             }
 
+            Role.Form -> role.possibleElements().map {
+                "//$it[@aria-label='$accessibleName']"
+            }
+
+            Role.List -> role.possibleElements().map {
+                "//$it[@aria-label='$accessibleName']"
+            }
+
             else -> role.possibleElements().map {
                 "//$it[text()='${accessibleName}']"
             }
