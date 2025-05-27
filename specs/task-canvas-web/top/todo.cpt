@@ -14,7 +14,7 @@
 * リスト"todo-list"にテキスト<text>のリストアイテム"todo-item"が表示されている
 
 # TODO<text>は未完了である
-* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に要素"input[type='checkbox']"の属性"checked"が存在しない
+* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に要素"input[type='checkbox']"の属性"checked"が"false"である
 
 # TODO<text>にチェックボックスが表示されている
 // muiの仕様上、inputのopacityが0になるため表示されていることをアサートできなかった
@@ -24,7 +24,7 @@
 * リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に要素"input[type='checkbox']"をクリックする
 
 # TODO<text>は完了である
-* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に要素"input[type='checkbox']"の属性"value"が"true"である
+* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に要素"input"の属性"checked"が"true"である
 
 # TODO<text>に編集ボタンが表示されていない
 * リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に属性"aria-label"が"todo-edit"の要素が表示されていない
