@@ -164,14 +164,35 @@ class TaskCanvasWeb {
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>の属性<attribute>が<value>である")
-    fun リストにリストアイテムの要素の属性がである(listRoleLabel: String, listItemRoleLabel: String, text: String, element: String, attribute: String, value: String) {
+    fun リストにリストアイテムの要素の属性がである(
+        listRoleLabel: String, text: String, listItemRoleLabel: String, element: String, attribute: String, value: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        val targetElement = list.`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+            .`$`(element)
+
+        if (attribute == "checked") {
+            if (value == "true") {
+                targetElement.shouldBe(checked)
+            } else {
+                targetElement.shouldNotBe(checked)
+            }
+        } else {
+            targetElement.shouldHave(attribute(attribute, value))
+        }
+    }
+
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>の属性<attribute>が存在する")
+    fun リストにリストアイテムの要素の属性が存在する(listRoleLabel: String, listItemRoleLabel: String, text: String, element: String, attribute: String) {
         val list = Locator.getByRole(Role.List, listRoleLabel).first()
         list.`$$`("li")
             .filter(attribute("aria-label", listItemRoleLabel))
             .filter(exactText(text))
             .first()
             .`$`(element)
-            .shouldHave(attribute(attribute, value))
+            .shouldHave(attribute(attribute))
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>の属性<attribute>が存在しない")
