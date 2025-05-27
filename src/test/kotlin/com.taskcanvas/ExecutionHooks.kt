@@ -3,7 +3,7 @@ package com.taskcanvas
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.WebDriverRunner
 import com.thoughtworks.gauge.AfterSpec
-import com.thoughtworks.gauge.BeforeSpec
+import com.thoughtworks.gauge.BeforeScenario
 import com.thoughtworks.gauge.ExecutionContext
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.logging.LogType
@@ -12,7 +12,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 class ExecutionHooks {
-    @BeforeSpec
+    @BeforeScenario
     fun setUp(executionContext: ExecutionContext) {
         if (isTaskCanvasApi(executionContext)) {
             cleanUpDb()
@@ -41,6 +41,7 @@ class ExecutionHooks {
                 }
             } catch (e: Exception) {
                 println("ネットワークログの取得に失敗しました: ${e.message}")
+                e.printStackTrace()
             }
 
             try {
@@ -129,7 +130,7 @@ class ExecutionHooks {
             Configuration.reopenBrowserOnFail = reopenBrowserOnFail
             Configuration.holdBrowserOpen = holdBrowserOpen
             Configuration.browserCapabilities = ChromeOptions().apply {
-                addArguments("--incongnito")
+                addArguments("--incognito")
             }
             Configuration.timeout = timeout
         }
