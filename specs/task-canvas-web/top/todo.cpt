@@ -30,7 +30,7 @@
 * リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に属性"aria-label"が"todo-edit"の要素が表示されていない
 
 # TODO<text>に編集ボタンが表示されている
-* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に属性"aria-label"が"todo-edit"の要素が表示されている
+* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に要素"button[aria-label='todo-edit']"が存在している
 
 # TODO<text>にカーソルを合わせる
-* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"にカーソルを合わせる
+* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"の要素"div[aria-label='todo-card']"にカーソルを合わせる

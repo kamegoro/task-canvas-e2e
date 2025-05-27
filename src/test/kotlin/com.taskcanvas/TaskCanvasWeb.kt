@@ -227,13 +227,14 @@ class TaskCanvasWeb {
             .shouldBe(visible)
     }
 
-    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>にカーソルを合わせる")
-    fun リストの要素にカーソルを合わせる(listRoleLabel: String, text: String, listItemRoleLabel: String) {
+    @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>の要素<element>にカーソルを合わせる")
+    fun リストの要素にカーソルを合わせる(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
         val list = Locator.getByRole(Role.List, listRoleLabel).first()
         list.`$$`("li")
             .filter(exactText(text))
             .filter(attribute("aria-label", listItemRoleLabel))
             .first()
+            .`$`(element)
             .hover()
     }
 

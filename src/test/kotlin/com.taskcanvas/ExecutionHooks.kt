@@ -131,6 +131,7 @@ class ExecutionHooks {
             Configuration.holdBrowserOpen = holdBrowserOpen
             Configuration.browserCapabilities = ChromeOptions().apply {
                 addArguments("--incognito")
+                setCapability("goog:loggingPrefs", mapOf("performance" to "ALL"))
             }
             Configuration.timeout = timeout
         }
