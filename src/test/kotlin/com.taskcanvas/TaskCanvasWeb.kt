@@ -227,6 +227,26 @@ class TaskCanvasWeb {
             .shouldBe(visible)
     }
 
+    @Step("リスト<listRoleLabel>にテキスト<text>のリストアイテム<listItemRoleLabel>が表示されていない")
+    fun リストの要素が表示されていない(listRoleLabel: String, text: String, listItemRoleLabel: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+            .shouldNotBe(visible)
+    }
+
+    @Step("リスト<listRoleLabel>の順番<order>のリストアイテム<listItemRoleLabel>にテキスト<text>が表示されている")
+    fun リストの順番の要素が表示されている(listRoleLabel: String, order: Int, listItemRoleLabel: String, text: String) {
+        val list = Locator.getByRole(Role.List, listRoleLabel).first()
+        list.`$$`("li")
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .get(order -1)
+            .shouldHave(exactText(text))
+            .shouldBe(visible)
+    }
+
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>の要素<element>にカーソルを合わせる")
     fun リストの要素にカーソルを合わせる(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
         val list = Locator.getByRole(Role.List, listRoleLabel).first()
