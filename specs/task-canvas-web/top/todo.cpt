@@ -13,6 +13,12 @@
 # TODO<text>が表示されている
 * リスト"todo-list"にテキスト<text>のリストアイテム"todo-item"が表示されている
 
+# TODO<text>が表示されていない
+* リスト"todo-list"にテキスト<text>のリストアイテム"todo-item"が表示されていない
+
+# TODO一覧の順番<order>にTODO<text>が表示されている
+* リスト"todo-list"の順番<order>のリストアイテム"todo-item"にテキスト<text>が表示されている
+
 # TODO<text>は未完了である
 * リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に要素"input[type='checkbox']"の属性"checked"が"false"である
 
