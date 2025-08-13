@@ -3,6 +3,8 @@ package com.taskcanvas.web
 import com.codeborne.selenide.Condition.*
 import com.codeborne.selenide.Selenide.`$`
 import com.codeborne.selenide.Selenide.`$$`
+import com.taskcanvas.Locator
+import com.taskcanvas.Role
 import com.thoughtworks.gauge.Step
 
 class Top {
@@ -51,5 +53,15 @@ class Top {
     fun inputにテキストを入力する(name: String, value: String) {
         `$$`("input").findBy(attribute("name", name))
             .sendKeys(value)
+    }
+
+    @Step("メニューが表示されている")
+    fun メニューが表示されている() {
+        Locator.getByRoleAll(Role.Menu).first().shouldBe(visible)
+    }
+
+    @Step("メニューが表示されていない")
+    fun メニューが表示されていない() {
+        Locator.getByRoleAll(Role.Menu).first().shouldNotBe(visible)
     }
 }

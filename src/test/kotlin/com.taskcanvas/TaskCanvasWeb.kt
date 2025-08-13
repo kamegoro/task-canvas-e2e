@@ -1,6 +1,7 @@
 package com.taskcanvas
 
 import com.codeborne.selenide.Condition.*
+import com.codeborne.selenide.Selenide.`$`
 import com.codeborne.selenide.Selenide.open
 import com.thoughtworks.gauge.Step
 
@@ -8,6 +9,11 @@ class TaskCanvasWeb {
     @Step("画面<url>にアクセスする")
     fun 画面にアクセスする(url: String) {
         open(url)
+    }
+
+    @Step("ヘッダーが表示されている")
+    fun ヘッダーが表示されている() {
+        Locator.getByRoleAll(Role.Header).first().shouldBe(visible)
     }
 
     @Step("見出し<text>が表示されている")
@@ -291,6 +297,11 @@ class TaskCanvasWeb {
     @Step("アラート<text>が表示されている")
     fun アラートが表示されている(text: String) {
         Locator.getByRole(Role.Alert, text).first().shouldBe(visible)
+    }
+
+    @Step("ID<id>をクリックする")
+    fun IDをクリックする(id: String) {
+        `$`(id).click()
     }
 }
 

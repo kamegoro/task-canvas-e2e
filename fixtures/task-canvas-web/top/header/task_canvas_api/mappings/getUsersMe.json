@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/v1/users/me",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer token"
+      }
+    }
+  },
+  "response": {
+    "fixedDelayMilliseconds": 100,
+    "status": 200,
+    "jsonBody": {
+      "id": "10A1DE8E-6E68-4330-947B-8CC156B70C54",
+      "email": "test@example.com"
+    }
+  }
+}

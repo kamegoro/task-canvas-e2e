@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/v1/todos",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer token"
+      }
+    },
+    "bodyPatterns": [
+        {
+          "equalToJson": {
+            "content": "新しいTODO",
+            "completed": false
+          }
+        }
+    ]
+  },
+  "response": {
+    "fixedDelayMilliseconds": 500,
+    "status": 200,
+    "jsonBody": {
+      "id": "3"
+    },
+    "headers": {
+      "Authorization": "Bearer token second"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/v1/todos",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer token"
+      }
+    }
+  },
+  "response": {
+    "fixedDelayMilliseconds": 500,
+    "status": 200,
+    "jsonBody": {
+      "todos": [
+        {
+          "id": "1",
+          "content": "古いTODO",
+          "completed": false
+        }
+      ]
+    },
+    "headers": {
+      "Authorization": "Bearer token"
+    }
+  }
+}

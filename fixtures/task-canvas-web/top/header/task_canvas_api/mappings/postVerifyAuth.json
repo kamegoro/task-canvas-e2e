@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/verifyAuth",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer token"
+      }
+    }
+  },
+  "response": {
+    "fixedDelayMilliseconds": 500,
+    "status": 200,
+    "headers": {
+      "Authorization": "Bearer token"
+    }
+  }
+}
