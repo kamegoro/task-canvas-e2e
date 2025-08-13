@@ -23,7 +23,7 @@
       "id": "3"
     },
     "headers": {
-      "Authorization": "Bearer token second"
+      "Authorization": "Bearer token"
     }
   }
 }

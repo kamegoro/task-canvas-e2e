@@ -12,13 +12,7 @@
     "fixedDelayMilliseconds": 500,
     "status": 200,
     "jsonBody": {
-      "todos": [
-        {
-          "id": "1",
-          "content": "古いTODO",
-          "completed": false
-        }
-      ]
+      "todos": []
     },
     "headers": {
       "Authorization": "Bearer token"
