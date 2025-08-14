@@ -26,6 +26,10 @@ object Locator {
                 "//$it[@aria-label='$accessibleName']"
             }
 
+            Role.Svg -> role.possibleElements().map {
+                "//$it[@aria-label='$accessibleName']"
+            }
+
             else -> role.possibleElements().map {
                 "//$it[text()='${accessibleName}']"
             }
@@ -38,6 +42,10 @@ object Locator {
         val xPaths = when (role) {
             Role.Alert -> role.possibleElements().map {
                 "//$it[@role='alert']"
+            }
+
+            Role.Menu -> role.possibleElements().map {
+                "//$it[@role='menu']"
             }
 
             else -> role.possibleElements().map {
@@ -74,7 +82,7 @@ enum class Role {
         Alert -> listOf("div")
         Div -> listOf("div")
         Svg -> listOf("svg")
-        Menu -> listOf("menu")
+        Menu -> listOf("menu", "ul")
         Textbox -> listOf("input")
     }
 }

@@ -1,8 +1,7 @@
 package com.taskcanvas.web
 
 import com.codeborne.selenide.Condition.*
-import com.codeborne.selenide.Selenide.`$`
-import com.codeborne.selenide.Selenide.`$$`
+import com.codeborne.selenide.Selenide.*
 import com.taskcanvas.Locator
 import com.taskcanvas.Role
 import com.thoughtworks.gauge.Step
@@ -63,5 +62,22 @@ class Top {
     @Step("メニューが表示されていない")
     fun メニューが表示されていない() {
         Locator.getByRoleAll(Role.Menu).first().shouldNotBe(visible)
+    }
+
+    @Step("ヘッダーの端をマウスでクリックする")
+    fun ヘッダーの端をマウスでクリックする() {
+        val header = Locator.getByRoleAll(Role.Header).first()
+
+        actions()
+            .moveToElement(header, 0, 0)
+            .click()
+            .perform()
+    }
+
+    @Step("メニューに<text>が表示されている")
+    fun メニューにが表示されている(text: String) {
+        Locator.getByRoleAll(Role.Menu).filter(exactText(text))
+            .first()
+            .shouldBe(visible)
     }
 }

@@ -1,8 +1,7 @@
 package com.taskcanvas
 
 import com.codeborne.selenide.Condition.*
-import com.codeborne.selenide.Selenide.`$`
-import com.codeborne.selenide.Selenide.open
+import com.codeborne.selenide.Selenide.*
 import com.thoughtworks.gauge.Step
 
 class TaskCanvasWeb {
@@ -49,6 +48,12 @@ class TaskCanvasWeb {
     @Step("アイコン<name>が表示されている")
     fun アイコンが表示されている(name: String) {
         Locator.getByRole(Role.Svg, name).first().shouldBe(visible)
+    }
+
+    @Step("AriaLabel<ariaLabel>の要素が表示されている")
+    fun AriaLabelの要素が表示されている(ariaLabel: String) {
+        val elements = `$$x`("//*[@aria-label='$ariaLabel']")
+        elements.first().shouldBe(visible)
     }
 
     @Step("メールアドレスの入力フォームが表示されている")
@@ -301,7 +306,7 @@ class TaskCanvasWeb {
 
     @Step("ID<id>をクリックする")
     fun IDをクリックする(id: String) {
-        `$`(id).click()
+        `$`("#${id}").click()
     }
 }
 
