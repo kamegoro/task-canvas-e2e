@@ -1,0 +1,5 @@
+[plugins]
+gauge = "https://github.com/yysushi/asdf-gauge.git"
+
+[tools]
+gauge = "1.6.16"
