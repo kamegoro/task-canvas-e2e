@@ -2,4 +2,4 @@
 gauge = "https://github.com/yysushi/asdf-gauge.git"
 
 [tools]
-gauge = "1.6.16"
+gauge = "1.6.31"
