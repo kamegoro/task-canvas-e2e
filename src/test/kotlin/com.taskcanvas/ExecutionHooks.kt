@@ -95,6 +95,11 @@ class ExecutionHooks {
         mapOf(
             TaskCanvasApiForWeb to "task_canvas_api"
         ).forEach { (mock, dir) ->
+            val sharedMappingsFile = Paths.get("fixtures", "_shared", dir)
+            if (Files.exists(sharedMappingsFile)) {
+                mock.loadMappingsFrom(sharedMappingsFile.toFile())
+            }
+
             val mappingsPath = executionContext.getSpecResourcePath()
             val mappingsFile = Paths.get("fixtures", mappingsPath, dir)
             if (Files.exists(mappingsFile)) {
