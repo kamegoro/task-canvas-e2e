@@ -17,10 +17,10 @@
     ]
   },
   "response": {
-    "status": 200,
     "fixedDelayMilliseconds": 500,
+    "status": 200,
     "headers": {
-      "Authorization": "token"
+      "Authorization": "Bearer token"
     }
   }
 }
