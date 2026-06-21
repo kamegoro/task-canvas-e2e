@@ -153,15 +153,9 @@ class TaskCanvas {
         return URI.create("$baseUrl$url")
     }
 
-    private fun generateApiEndpoint(apiName: String, url: String): URI {
-        if (apiName == "taskCanvas") {
-            return URI.create("${config.taskCanvas.rest.baseUrl}$url")
-        }
-
-        if (apiName == "taskCanvasTagManager") {
-            return URI.create("${config.taskCanvasTagManager.rest.baseUrl}$url")
-        }
-
-        throw IllegalArgumentException("Invalid API name")
+    private fun generateApiEndpoint(apiName: String, url: String): URI = when (apiName) {
+        "taskCanvas" -> URI.create("${config.taskCanvas.rest.baseUrl}$url")
+        "taskCanvasTagManager" -> URI.create("${config.taskCanvasTagManager.rest.baseUrl}$url")
+        else -> throw IllegalArgumentException("Invalid API name: $apiName")
     }
 }
