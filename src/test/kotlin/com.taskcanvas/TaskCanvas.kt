@@ -27,7 +27,9 @@ class TaskCanvas {
 
     @Step("レスポンスヘッダのAuthorizationにトークンが含まれている")
     fun responseAuthorization() {
-        assertThat(response.headers().firstValue("Authorization").get().isNotEmpty())
+        val token = response.headers().firstValue("Authorization")
+            .orElseThrow { AssertionError("Authorization header is missing") }
+        assertThat(token).isNotEmpty()
     }
 
     @Step("API<apiName>のURL<url>にGETリクエストを送る")
@@ -36,10 +38,7 @@ class TaskCanvas {
             .uri(generateApiEndpoint(apiName, url))
             .GET()
 
-        println("URL: ${generateApiEndpoint(apiName, url)}")
-
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
-        println("Response: ${response.body()}")
     }
 
     @Step("URL<url>にボディ<requestBody>で、POSTリクエストを送る")
@@ -50,7 +49,7 @@ class TaskCanvas {
             .POST(HttpRequest.BodyPublishers.ofString(requestBody))
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
-        authorizationToken = response.headers().firstValue("Authorization").get()
+        authorizationToken = extractAuthorizationToken(response)
     }
 
     @Step("URL<url>にボディ<requestBody>で、PUTリクエストを送る")
@@ -61,7 +60,7 @@ class TaskCanvas {
             .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
-        authorizationToken = response.headers().firstValue("Authorization").get()
+        authorizationToken = extractAuthorizationToken(response)
     }
 
     @Step("URL<url>にAuthorizationTokenを含めてGETリクエストを送る")
@@ -72,7 +71,7 @@ class TaskCanvas {
             .GET()
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
-        authorizationToken = response.headers().firstValue("Authorization").get()
+        authorizationToken = extractAuthorizationToken(response)
     }
 
     @Step("URL<url>にAuthorizationTokenを含めてPOSTリクエストを送る")
@@ -108,7 +107,7 @@ class TaskCanvas {
             .DELETE()
 
         response = client.send(request.build(), HttpResponse.BodyHandlers.ofString())
-        authorizationToken = response.headers().firstValue("Authorization").get()
+        authorizationToken = extractAuthorizationToken(response)
     }
 
     @Step("レスポンスボディにJSONでキー<key>で値<value>が含まれている")
@@ -141,6 +140,10 @@ class TaskCanvas {
     fun pass() {
         return
     }
+
+    private fun extractAuthorizationToken(response: HttpResponse<String>): String =
+        response.headers().firstValue("Authorization")
+            .orElseThrow { AssertionError("Authorization header is missing from response (${response.statusCode()})") }
 
     private fun readBaseUrl(): String {
         return config.taskCanvas.rest.baseUrl
