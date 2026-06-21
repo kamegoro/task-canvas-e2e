@@ -72,13 +72,14 @@ class ExecutionHooks {
         if (tableOrderingFile.exists()) {
             val sqlFiles = tableOrderingFile.readLines()
 
-            val connection = Database.connection()
-            sqlFiles.forEach { sqlFileName ->
-                val sqlFilePath = Paths.get("$fixturesPath/$sqlFileName.sql")
-                if (Files.exists(sqlFilePath)) {
-                    val sql = Files.readString(sqlFilePath)
-                    connection.createStatement().use { stmt ->
-                        stmt.execute(sql)
+            Database.connection().use { connection ->
+                sqlFiles.forEach { sqlFileName ->
+                    val sqlFilePath = Paths.get("$fixturesPath/$sqlFileName.sql")
+                    if (Files.exists(sqlFilePath)) {
+                        val sql = Files.readString(sqlFilePath)
+                        connection.createStatement().use { stmt ->
+                            stmt.execute(sql)
+                        }
                     }
                 }
             }
@@ -94,7 +95,7 @@ class ExecutionHooks {
             TaskCanvasApiForWeb to "task_canvas_api"
         ).forEach { (mock, dir) ->
             val mappingsPath = executionContext.getSpecResourcePath()
-            val mappingsFile = Paths.get("fixtures//$mappingsPath/$dir")
+            val mappingsFile = Paths.get("fixtures", mappingsPath, dir)
             if (Files.exists(mappingsFile)) {
                 mock.loadMappingsFrom(mappingsFile.toFile())
             }
