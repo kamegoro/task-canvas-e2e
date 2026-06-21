@@ -2,6 +2,7 @@ package com.taskcanvas
 
 import com.codeborne.selenide.Condition.*
 import com.codeborne.selenide.Selenide.*
+import com.codeborne.selenide.SelenideElement
 import com.thoughtworks.gauge.Step
 
 class TaskCanvasWeb {
@@ -143,46 +144,23 @@ class TaskCanvasWeb {
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>が表示されている")
     fun リストのリストアイテムに要素が表示されている(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .`$`(element)
-            .shouldBe(visible)
+        findListItem(listRoleLabel, text, listItemRoleLabel).`$`(element).shouldBe(visible)
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>が存在している")
     fun リストのリストアイテムに要素が存在している(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .`$`(element)
-            .should(exist)
+        findListItem(listRoleLabel, text, listItemRoleLabel).`$`(element).should(exist)
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>が表示されていない")
     fun リストのリストアイテムに要素が表示されていない(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .`$`(element)
-            .shouldNotBe(visible)
+        findListItem(listRoleLabel, text, listItemRoleLabel).`$`(element).shouldNotBe(visible)
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>の属性<attribute>が<value>である")
     fun リストにリストアイテムの要素の属性がである(
         listRoleLabel: String, text: String, listItemRoleLabel: String, element: String, attribute: String, value: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        val targetElement = list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .`$`(element)
+        val targetElement = findListItem(listRoleLabel, text, listItemRoleLabel).`$`(element)
 
         if (attribute == "checked") {
             if (value == "true") {
@@ -197,55 +175,27 @@ class TaskCanvasWeb {
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>の属性<attribute>が存在する")
     fun リストにリストアイテムの要素の属性が存在する(listRoleLabel: String, listItemRoleLabel: String, text: String, element: String, attribute: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .filter(exactText(text))
-            .first()
-            .`$`(element)
-            .shouldHave(attribute(attribute))
+        findListItem(listRoleLabel, text, listItemRoleLabel).`$`(element).shouldHave(attribute(attribute))
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>の属性<attribute>が存在しない")
     fun リストにリストアイテムの要素の属性が存在しない(listRoleLabel: String, listItemRoleLabel: String, text: String, element: String, attribute: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .filter(exactText(text))
-            .first()
-            .`$`(element)
-            .shouldNotHave(attribute(attribute))
+        findListItem(listRoleLabel, text, listItemRoleLabel).`$`(element).shouldNotHave(attribute(attribute))
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に要素<element>をクリックする")
     fun リストのリストアイテムに要素をクリックする(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .`$`(element)
-            .click()
+        findListItem(listRoleLabel, text, listItemRoleLabel).`$`(element).click()
     }
 
     @Step("リスト<listRoleLabel>にテキスト<text>のリストアイテム<listItemRoleLabel>が表示されている")
     fun リストの要素が表示されている(listRoleLabel: String, text: String, listItemRoleLabel: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .shouldBe(visible)
+        findListItem(listRoleLabel, text, listItemRoleLabel).shouldBe(visible)
     }
 
     @Step("リスト<listRoleLabel>にテキスト<text>のリストアイテム<listItemRoleLabel>が表示されていない")
     fun リストの要素が表示されていない(listRoleLabel: String, text: String, listItemRoleLabel: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .shouldNotBe(visible)
+        findListItem(listRoleLabel, text, listItemRoleLabel).shouldNotBe(visible)
     }
 
     @Step("リスト<listRoleLabel>の順番<order>のリストアイテム<listItemRoleLabel>にテキスト<text>が表示されている")
@@ -260,33 +210,17 @@ class TaskCanvasWeb {
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>の要素<element>にカーソルを合わせる")
     fun リストの要素にカーソルを合わせる(listRoleLabel: String, text: String, listItemRoleLabel: String, element: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .`$`(element)
-            .hover()
+        findListItem(listRoleLabel, text, listItemRoleLabel).`$`(element).hover()
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に属性<attribute>が<value>の要素が表示されている")
     fun リストの要素が表示されている(listRoleLabel: String, text: String, listItemRoleLabel: String, attribute: String, value: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .shouldHave(attribute(attribute, value))
+        findListItem(listRoleLabel, text, listItemRoleLabel).shouldHave(attribute(attribute, value))
     }
 
     @Step("リスト<listRoleLabel>のテキスト<text>のリストアイテム<listItemRoleLabel>に属性<attribute>が<value>の要素が表示されていない")
     fun リストの要素が表示されていない(listRoleLabel: String, text: String, listItemRoleLabel: String, attribute: String, value: String) {
-        val list = Locator.getByRole(Role.List, listRoleLabel).first()
-        list.`$$`("li")
-            .filter(exactText(text))
-            .filter(attribute("aria-label", listItemRoleLabel))
-            .first()
-            .shouldNotHave(attribute(attribute, value))
+        findListItem(listRoleLabel, text, listItemRoleLabel).shouldNotHave(attribute(attribute, value))
     }
 
     @Step("ローディングが表示される")
@@ -308,5 +242,12 @@ class TaskCanvasWeb {
     fun IDをクリックする(id: String) {
         `$`("#${id}").click()
     }
-}
 
+    private fun findListItem(listRoleLabel: String, text: String, listItemRoleLabel: String): SelenideElement {
+        return Locator.getByRole(Role.List, listRoleLabel).first()
+            .`$$`("li")
+            .filter(exactText(text))
+            .filter(attribute("aria-label", listItemRoleLabel))
+            .first()
+    }
+}
