@@ -1,6 +1,7 @@
 package com.taskcanvas
 
 import com.codeborne.selenide.Configuration
+import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
 import com.thoughtworks.gauge.AfterSpec
 import com.thoughtworks.gauge.BeforeScenario
@@ -20,7 +21,7 @@ class ExecutionHooks {
         }
 
         if (isTaskCanvasWeb(executionContext)) {
-            WebDriverRunner.closeWebDriver()
+            Selenide.closeWebDriver()
             prepareSelenide()
 
             resetTaskCanvasApiMock()
@@ -129,7 +130,6 @@ class ExecutionHooks {
             Configuration.remote = remote
             Configuration.browser = browser
             Configuration.reopenBrowserOnFail = reopenBrowserOnFail
-            Configuration.holdBrowserOpen = holdBrowserOpen
             Configuration.browserCapabilities = ChromeOptions().apply {
                 addArguments("--incognito")
                 setCapability("goog:loggingPrefs", mapOf("performance" to "ALL"))
