@@ -1,0 +1,2 @@
+# TaskCanvasにログインする
+* URL"/v1/signIn"にボディ"{\"email\": \"test@example.com\", \"password\": \"password\"}"で、AuthorizationTokenを含めずにPOSTリクエストを送る

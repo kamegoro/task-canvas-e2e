@@ -12,4 +12,5 @@
 * レスポンスボディに削除済みのタグが含まれていない
 
 ## TaskCanvasTagManagerのv1/tagsにGETリクエストを送るとタグの検索ができる
-* API"taskCanvasTagManager"のURL"/v1/tags?"にGETリクエストを送る
+tags: wip
+* pass
