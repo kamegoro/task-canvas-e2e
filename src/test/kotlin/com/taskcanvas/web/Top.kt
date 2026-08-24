@@ -81,6 +81,15 @@ class Top {
             .shouldBe(visible)
     }
 
+    @Step("メニューの<text>をクリックする")
+    fun メニューのをクリックする(text: String) {
+        Locator.getByRoleAll(Role.Menu).first()
+            .`$$`("li")
+            .filter(exactText(text))
+            .first()
+            .click()
+    }
+
     @Step("ダークモード切り替えボタンが表示されている")
     fun ダークモード切り替えボタンが表示されている() {
         `$$`("button").findBy(attribute("aria-label", "ダークモードに切り替え")).shouldBe(visible)
