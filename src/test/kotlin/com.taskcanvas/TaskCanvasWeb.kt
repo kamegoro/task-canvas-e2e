@@ -57,6 +57,11 @@ class TaskCanvasWeb {
         elements.first().shouldBe(visible)
     }
 
+    @Step("画面をリロードする")
+    fun 画面をリロードする() {
+        refresh()
+    }
+
     @Step("メールアドレスの入力フォームが表示されている")
     fun メールアドレスの入力フォームが表示されている() {
         Locator.getByRoleAll(Role.Textbox)
