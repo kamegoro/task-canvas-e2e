@@ -23,7 +23,7 @@ class Top {
     fun todoの送信ボタンが表示されている() {
         `$$`("form").findBy(attribute("aria-label", "todo-form"))
             .`$`("button")
-            .shouldHave(exactText("Add"))
+            .shouldHave(exactText("追加"))
             .shouldBe(visible)
     }
 
@@ -31,7 +31,7 @@ class Top {
     fun todoの送信ボタンが非活性である() {
         `$$`("form").findBy(attribute("aria-label", "todo-form"))
             .`$`("button")
-            .shouldHave(exactText("Add"))
+            .shouldHave(exactText("追加"))
             .shouldHave(disabled)
     }
 
@@ -45,7 +45,7 @@ class Top {
 
     @Step("TODOの進捗率が表示されている")
     fun todoの進捗率が表示されている() {
-        `$`("task-progress").shouldBe(visible)
+        `$$`("*").findBy(attribute("aria-label", "達成率")).shouldBe(visible)
     }
 
     @Step("Input<name>にテキスト<value>を入力する")
