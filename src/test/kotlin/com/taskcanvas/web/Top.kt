@@ -80,4 +80,13 @@ class Top {
             .first()
             .shouldBe(visible)
     }
+
+    @Step("メニューの<text>をクリックする")
+    fun メニューのをクリックする(text: String) {
+        Locator.getByRoleAll(Role.Menu).first()
+            .`$$`("li")
+            .filter(exactText(text))
+            .first()
+            .click()
+    }
 }
