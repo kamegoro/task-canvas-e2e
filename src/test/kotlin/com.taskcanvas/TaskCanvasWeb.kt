@@ -57,6 +57,17 @@ class TaskCanvasWeb {
         elements.first().shouldBe(visible)
     }
 
+    @Step("AriaLabel<ariaLabel>の要素をクリックする")
+    fun AriaLabelの要素をクリックする(ariaLabel: String) {
+        val elements = `$$x`("//*[@aria-label='$ariaLabel']")
+        elements.first().click()
+    }
+
+    @Step("画面をリロードする")
+    fun 画面をリロードする() {
+        refresh()
+    }
+
     @Step("メールアドレスの入力フォームが表示されている")
     fun メールアドレスの入力フォームが表示されている() {
         Locator.getByRoleAll(Role.Textbox)
