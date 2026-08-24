@@ -80,4 +80,19 @@ class Top {
             .first()
             .shouldBe(visible)
     }
+
+    @Step("ダークモード切り替えボタンが表示されている")
+    fun ダークモード切り替えボタンが表示されている() {
+        `$$`("button").findBy(attribute("aria-label", "ダークモードに切り替え")).shouldBe(visible)
+    }
+
+    @Step("ダークモード切り替えボタンをクリックする")
+    fun ダークモード切り替えボタンをクリックする() {
+        `$$`("button").findBy(attribute("aria-label", "ダークモードに切り替え")).click()
+    }
+
+    @Step("ライトモード切り替えボタンが表示されている")
+    fun ライトモード切り替えボタンが表示されている() {
+        `$$`("button").findBy(attribute("aria-label", "ライトモードに切り替え")).shouldBe(visible)
+    }
 }
