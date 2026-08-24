@@ -40,3 +40,6 @@
 
 # TODO<text>にカーソルを合わせる
 * リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"の要素"div[aria-label='todo-card']"にカーソルを合わせる
+
+# TODO<text>の編集ボタンをクリックする
+* リスト"todo-list"のテキスト<text>のリストアイテム"todo-item"に要素"button[aria-label='todo-edit']"をクリックする
