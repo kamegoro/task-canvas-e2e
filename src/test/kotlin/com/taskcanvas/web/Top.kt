@@ -54,6 +54,19 @@ class Top {
             .sendKeys(value)
     }
 
+    @Step("Input<name>の入力値が<value>である")
+    fun inputの入力値がである(name: String, value: String) {
+        `$$`("input").findBy(attribute("name", name))
+            .shouldHave(value(value))
+    }
+
+    @Step("Input<name>の内容を<value>に変更する")
+    fun inputの内容をに変更する(name: String, value: String) {
+        val input = `$$`("input").findBy(attribute("name", name))
+        input.clear()
+        input.sendKeys(value)
+    }
+
     @Step("メニューが表示されている")
     fun メニューが表示されている() {
         Locator.getByRoleAll(Role.Menu).first().shouldBe(visible)
