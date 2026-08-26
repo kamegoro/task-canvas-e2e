@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/v1/todos",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer token edit"
+      }
+    }
+  },
+  "response": {
+    "fixedDelayMilliseconds": 500,
+    "status": 200,
+    "jsonBody": {
+      "todos": [
+        {
+          "id": "10",
+          "content": "編集前のTODO",
+          "completed": false
+        },
+        {
+          "id": "1",
+          "content": "古いTODO",
+          "completed": false
+        }
+      ]
+    },
+    "headers": {
+      "Authorization": "Bearer token edit second"
+    }
+  }
+}
