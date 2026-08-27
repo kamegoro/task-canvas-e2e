@@ -62,9 +62,14 @@ class Top {
 
     @Step("Input<name>の内容を<value>に変更する")
     fun inputの内容をに変更する(name: String, value: String) {
+        // input.clear() sets the DOM value without going through a real keyboard
+        // event, so a React-controlled input's onChange never fires and its state
+        // stays at the old value. On the next render React resyncs the DOM back to
+        // that stale value, so sendKeys() ends up appending to the old text instead
+        // of replacing it. setValue() clears via selectAll+Delete key events instead,
+        // which React does see.
         val input = `$$`("input").findBy(attribute("name", name))
-        input.clear()
-        input.sendKeys(value)
+        input.setValue(value)
     }
 
     @Step("メニューが表示されている")
