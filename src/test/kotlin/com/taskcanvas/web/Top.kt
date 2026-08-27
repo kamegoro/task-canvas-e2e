@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide.*
 import com.taskcanvas.Locator
 import com.taskcanvas.Role
 import com.thoughtworks.gauge.Step
+import org.openqa.selenium.Keys
 
 class Top {
     @Step("TODOの入力フォームが表示されている")
@@ -62,14 +63,17 @@ class Top {
 
     @Step("Input<name>の内容を<value>に変更する")
     fun inputの内容をに変更する(name: String, value: String) {
-        // input.clear() sets the DOM value without going through a real keyboard
-        // event, so a React-controlled input's onChange never fires and its state
-        // stays at the old value. On the next render React resyncs the DOM back to
-        // that stale value, so sendKeys() ends up appending to the old text instead
-        // of replacing it. setValue() clears via selectAll+Delete key events instead,
-        // which React does see.
+        // Selenide's clear()/setValue() both end up calling the raw WebElement.clear(),
+        // which empties the DOM value without a real keyboard event. A React-controlled
+        // input never sees that as an onChange, so its state stays at the old value;
+        // React then resyncs the DOM back to that stale value on the next render, and
+        // sendKeys() ends up appending to the old text instead of replacing it.
+        // Select-all + Delete via real key events goes through the same input pipeline
+        // as normal typing, so React's value tracker actually observes the change.
         val input = `$$`("input").findBy(attribute("name", name))
-        input.setValue(value)
+        input.sendKeys(Keys.chord(Keys.CONTROL, "a"))
+        input.sendKeys(Keys.DELETE)
+        input.sendKeys(value)
     }
 
     @Step("メニューが表示されている")
