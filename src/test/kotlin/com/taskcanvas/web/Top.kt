@@ -63,13 +63,6 @@ class Top {
 
     @Step("Input<name>の内容を<value>に変更する")
     fun inputの内容をに変更する(name: String, value: String) {
-        // Selenide's clear()/setValue() both end up calling the raw WebElement.clear(),
-        // which empties the DOM value without a real keyboard event. A React-controlled
-        // input never sees that as an onChange, so its state stays at the old value;
-        // React then resyncs the DOM back to that stale value on the next render, and
-        // sendKeys() ends up appending to the old text instead of replacing it.
-        // Select-all + Delete via real key events goes through the same input pipeline
-        // as normal typing, so React's value tracker actually observes the change.
         val input = `$$`("input").findBy(attribute("name", name))
         input.sendKeys(Keys.chord(Keys.CONTROL, "a"))
         input.sendKeys(Keys.DELETE)
