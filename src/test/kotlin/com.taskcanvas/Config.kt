@@ -4,7 +4,7 @@ import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.addEnvironmentSource
 import com.sksamuel.hoplite.addResourceSource
 
-private const val RESOURCE = "/env.yaml"
+private val RESOURCE = "/env${System.getProperty("env")?.let { "-$it" } ?: ""}.yaml"
 
 val config = ConfigLoaderBuilder.default()
     .addEnvironmentSource()
