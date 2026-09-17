@@ -17,8 +17,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Patch and minor updates are auto-approved and left for the
-      # Dependabot Auto-merge workflow to merge once CI is green.
       - name: Auto-approve patch and minor updates
         if: |
           steps.metadata.outputs.update-type == 'version-update:semver-patch' ||

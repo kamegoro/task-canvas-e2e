@@ -1,9 +1,5 @@
 name: Dependabot Auto-merge
 
-# Runs each time one of the other checks finishes, instead of polling a
-# single long-running job for up to 30 minutes. workflow_run always uses
-# the version of this file on the default branch, so a fix here applies
-# to every open Dependabot PR immediately without needing to rebase them.
 on:
   workflow_run:
     types: [completed]
@@ -46,7 +42,6 @@ jobs:
             exit 0
           fi
 
-          # Exclude this job's own check run by name so it never waits on itself.
           check_runs=$(gh api "repos/$REPO/commits/$SHA/check-runs" --paginate --jq '[.check_runs[] | select(.name != "auto-merge")]')
 
           incomplete=$(jq '[.[] | select(.status != "completed")] | length' <<<"$check_runs")
