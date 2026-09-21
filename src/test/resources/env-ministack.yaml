@@ -1,0 +1,45 @@
+# MiniStack環境（aws-infrastructure/terraform/envs/local）向けの設定テンプレート。
+# 実際の値は make e2e 実行時に環境変数で上書きされる（Config.kt の addEnvironmentSource() 参照）。
+# 環境変数のキー名は __ をネスト区切りとして使用する（Hoplite 2.x の規約）。
+#
+# 上書きに使う環境変数の一覧:
+#   TASK_CANVAS__REST__BASE_URL          ALBのエンドポイント    例: http://<alb-dns-name>
+#   TASK_CANVAS__DB__JDBC_URL            AuroraのJDBC URL       例: jdbc:postgresql://<db-endpoint>:<db-port>/<db-name>
+#   TASK_CANVAS__DB__USERNAME            DBユーザー名            例: task_canvas (Secrets Manager参照)
+#   TASK_CANVAS__DB__PASSWORD            DBパスワード            例: (Secrets Manager参照)
+#   TASK_CANVAS__DB__SCHEMA              DBスキーマ名            例: task_canvas
+#   SELENIDE__BASE_URL                   フロントエンドURL       例: http://<cloudfront-domain>
+#   TASK_CANVAS_WEB__BACKEND_HOST        ALBのホスト名          例: <alb-dns-name>
+#   TASK_CANVAS_WEB__BACKEND_PORT        ALBのポート番号         例: 80
+#
+# aws-infrastructure の Makefile では以下のように実行する:
+#   make e2e \
+#     FRONTEND_DIR=../task-canvas/frontend/out \
+#     E2E_DIR=../task-canvas-e2e \
+#     E2E_CMD="mvn test -Denv=ministack"
+#
+# tf-outputs-env.sh が terraform output から TF_OUT_* を export するため、
+# Makefile の e2e ターゲット内でそれらを上記の Hoplite 環境変数に変換して渡す。
+
+taskCanvasWeb:
+  backendHost: localhost
+  backendPort: 80
+taskCanvas:
+  rest:
+    baseUrl: "http://localhost:80"
+  db:
+    jdbcUrl: "jdbc:postgresql://localhost:5432/task_canvas"
+    username: "task_canvas"
+    password: "changeme"
+    schema: "task_canvas"
+taskCanvasTagManager:
+  rest:
+    baseUrl: "http://localhost:9090"
+selenide:
+  baseUrl: "http://localhost"
+  remote: null
+  headless: true
+  browser: "chrome"
+  reopenBrowserOnFail: false
+  holdBrowserOpen: false
+  timeout: 10000
