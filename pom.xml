@@ -60,7 +60,7 @@
         <dependency>
             <groupId>com.sksamuel.hoplite</groupId>
             <artifactId>hoplite-core</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4</version>
         </dependency>
 
         <dependency>
